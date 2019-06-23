@@ -2,20 +2,24 @@
  * Created by Admin on 08.06.2019.
  */
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+//import static helpers.WebDriverFactory.createBrowser;
+
 public class OtusPageTestJunit {
     private WebDriver driver;
+
     private static final Logger logger = LogManager.getLogger(FirstTest.class);
 
     @BeforeClass
     public static void setupClass(){
-        WebDriverManager.chromedriver().setup();
+        //createBrowser("chrome");
+        //WebDriverManager.chromedriver().setup();
+        WebDriver driver = new ChromeDriver();
     }
 
     @Before
