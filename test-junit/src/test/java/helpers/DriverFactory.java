@@ -23,34 +23,10 @@ public class DriverFactory {
         if (browserName.isEmpty())
             throw new RuntimeException(browserName + " is empty!");
 
-        if (options == null) createNewDriver(browserName);
-
-        switch (browserName.toLowerCase()) {
-            case CHROME: {
-                WebDriverManager.chromedriver().setup();
-                System.setProperty("webdriver.chrome.driver", "src/test/resources/Drivers/chromedriver.exe");
-                return new ChromeDriver(options);
-            }
-            default: {
-                System.out.println("****************Browser name error: " + browserName);
-                throw new RuntimeException(browserName + " must be Chrome");
-            }
-        }
-    }
-
-    public static WebDriver createNewDriver(String browserName) {
-//        some magic
-
-        if (browserName == null)
-            throw new RuntimeException(browserName + " is not a parameter!");
-
-        if (browserName.isEmpty())
-            throw new RuntimeException(browserName + " is empty!");
-
         switch (browserName.toLowerCase()) {
             case CHROME: {
                 System.setProperty("webdriver.chrome.driver", "src/test/resources/Drivers/chromedriver.exe");
-                return new ChromeDriver();
+                return options==null ? new ChromeDriver() : new ChromeDriver(options);
             }
             case FIREFOX: {
                 return new FirefoxDriver();
@@ -61,4 +37,10 @@ public class DriverFactory {
             }
         }
     }
+
+    public static WebDriver createNewDriver(String browserName)
+    {
+       return createNewDriver(browserName, null);
+    }
+
 }
