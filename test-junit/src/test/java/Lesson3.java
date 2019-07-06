@@ -33,7 +33,8 @@ public class Lesson3 {
 
     public void createTestcase(String suiteName, String name, int stepsCount) throws Exception
     {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        Thread.sleep(5000);
+        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //Переключаемся на treeframe
         driver.switchTo().parentFrame().switchTo().frame("treeframe");
 
@@ -120,7 +121,7 @@ public class Lesson3 {
     }
 
     @Test
-    public void test10() throws Throwable
+    public void CreateTests() throws Throwable
     {
         //открываем тестлинк и логинимся
         driver.get("http://localhost/testlink/index.php");
@@ -147,6 +148,9 @@ public class Lesson3 {
         //Сохраняем тест сьют
         driver.switchTo().parentFrame().switchTo().frame("workframe").findElement(By.name("add_testsuite_button")).click();
         //Создаем тесткейсы:
-        createTestcase(suiteName, "Тест кейс", 3);
+        for(int i=0; i<2; i++)
+        {
+            createTestcase(suiteName, "Тест кейс", 3);
+        }
     }
 }
