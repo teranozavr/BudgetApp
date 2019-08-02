@@ -43,7 +43,7 @@ public class Lesson6YandexMarketTest {
         WebDriverWait wait = new WebDriverWait(driver, 10, 125);
 
         //driver.findElement(By.className("n-w-tab__control-hamburger")).click();
-        wait.until(driver -> driver.findElements(By.className("n-w-tab__control-hamburger")).size() > 0);
+        //wait.until(driver -> driver.findElements(By.className("n-w-tab__control-hamburger")).size() > 0);
         driver.findElement(By.className("n-w-tab__control-hamburger")).click();
         driver.findElement(By.className("n-w-tab__control-hamburger")).click();
         try {
