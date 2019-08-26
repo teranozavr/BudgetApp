@@ -1,11 +1,13 @@
 package helpers;
 
+import gherkin.lexer.Fi;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import okio.Options;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.BrowserType;
 import static org.openqa.selenium.remote.BrowserType.CHROME;
 import static org.openqa.selenium.remote.BrowserType.FIREFOX;
@@ -15,7 +17,7 @@ import static org.openqa.selenium.remote.BrowserType.FIREFOX;
  */
 public class DriverFactory {
 
-    public static WebDriver createNewDriver(String browserName, ChromeOptions options) {
+    public static WebDriver createNewDriver(String browserName, Object options) {
 
         if (browserName == null)
             throw new RuntimeException(browserName + " is not a parameter!");
@@ -25,11 +27,10 @@ public class DriverFactory {
 
         switch (browserName.toLowerCase()) {
             case CHROME: {
-                System.setProperty("webdriver.chrome.driver", "src/test/resources/Drivers/chromedriver.exe");
-                return options==null ? new ChromeDriver() : new ChromeDriver(options);
+                return options==null ? new ChromeDriver() : new ChromeDriver((ChromeOptions )options);
             }
             case FIREFOX: {
-                return new FirefoxDriver();
+                return new FirefoxDriver((FirefoxOptions) options);
             }
             default: {
                 System.out.println("****************Browser name error: " + browserName);
