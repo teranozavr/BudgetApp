@@ -26,14 +26,7 @@ public class OtusPageTestJunit {
     @Before
     public void setup(){
 
-
         //System.setProperty("browser","chrome");
-//        String browserProperty = System.getProperty("browser");
-//        System.out.println(browserProperty.toUpperCase());
-
-//        ChromeOptions opt = ChromeOpt();
-//        driver = createNewDriver("chrome", opt);
-
         switch (browserPropetry()) {
             case (CHROME): {
                 ChromeOptions opt = ChromeOpt();
