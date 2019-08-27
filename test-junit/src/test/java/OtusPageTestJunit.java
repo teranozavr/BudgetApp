@@ -2,29 +2,47 @@
  * Created by Admin on 08.06.2019.
  */
 
+import helpers.options.FirefoxOpt;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
-//import static helpers.WebDriverFactory.createBrowser;
+import static helpers.DriverFactory.createNewDriver;
+import static helpers.options.FirefoxOpt.FirefoxOpt;
+import static helpers.options.ChromeOpt.ChromeOpt;
+import static org.openqa.selenium.remote.BrowserType.CHROME;
+import static org.openqa.selenium.remote.BrowserType.FIREFOX;
+import static helpers.browserPropetry.browserPropetry;
+
 
 public class OtusPageTestJunit {
     private WebDriver driver;
 
     private static final Logger logger = LogManager.getLogger(FirstTest.class);
 
-    @BeforeClass
-    public static void setupClass(){
-        //createBrowser("chrome");
-        //WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-    }
-
     @Before
-    public void setupTest(){
-        driver = new ChromeDriver();
+    public void setup(){
+
+        //System.setProperty("browser","chrome");
+        switch (browserPropetry()) {
+            case (CHROME): {
+                ChromeOptions opt = ChromeOpt();
+                driver = createNewDriver(CHROME, opt);
+                return;
+            }
+            case (FIREFOX):{
+                FirefoxOptions opt = FirefoxOpt();
+                driver = createNewDriver(FIREFOX, opt);
+                return;
+            }
+            default: {
+                System.out.println("Wrong browser name");
+            }
+        }
+
     }
 
     @After
