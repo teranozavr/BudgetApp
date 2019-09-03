@@ -1,16 +1,17 @@
+import helpers.TestCaseElements;
+import junit.framework.TestCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.SystemClock;
 import org.apache.logging.log4j.core.util.SystemNanoClock;
+import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import sun.util.calendar.LocalGregorianCalendar;
@@ -18,7 +19,7 @@ import sun.util.calendar.LocalGregorianCalendar;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static helpers.DriverFactory.createNewDriver;
@@ -152,5 +153,88 @@ public class Lesson3 {
         {
             createTestcase(suiteName, "Тест кейс", 3);
         }
+    }
+    @Test
+    public void runTestCases() throws Throwable{
+        //открываем тестлинк и логинимся
+        driver.get("http://localhost/testlink/index.php");
+        driver.findElement(By.cssSelector("#tl_login")).sendKeys("admin");
+        driver.findElement(By.cssSelector("#tl_password")).sendKeys("admin");
+        driver.findElement(By.cssSelector("#login > div:nth-child(7) > input[type=submit]")).click();
+        Thread.sleep(5000);
+        //Открываем Execute Tests
+        driver.switchTo().parentFrame().switchTo().frame(1);
+        driver.findElement(By.linkText("Execute Tests")).click();
+        Thread.sleep(5000);
+        //Нажимаем Expand Tree
+        driver.switchTo().parentFrame().switchTo().frame("mainframe").switchTo().frame("treeframe");
+        driver.findElement(By.id("expand_tree")).click();
+        //Коллекция тесткейсов
+        //el.findElements(By.tagName("li"));
+        Thread.sleep(5000);
+        //WebElement el = driver.findElement(By.cssSelector("#ext-gen22"));
+        //List<WebElement> els = el.findElements(By.cssSelector(" #ext-gen22 > li"));
+        //x-tree-node-anchor
+        //for(WebElement elem : els)
+        //{
+        //    System.out.println(elem.getText());
+        //}
+
+        driver.switchTo().parentFrame().switchTo().frame("treeframe");
+
+        //Находим элемент - дерево с тестами
+        WebElement el =
+                //driver.findElement(By.className("x-panel-body x-panel-body-noheader"));
+                driver.findElement(By.cssSelector("#ext-gen14"));
+        //Получаем список тесткейсов из дерева тесткейсов
+        //TestCaseElements tcElements = new TestCaseElements(el);
+        //System.out.println(tcElements.getTestCases().size());
+        List<WebElement> tcElements = new TestCaseElements(el).getTestCases();
+
+        //Выбираем тест и кликаем на него
+        if(tcElements.size()>0){
+            System.out.println(tcElements.size());
+
+
+            WebElement e0 = tcElements.get(1);
+            e0.click();
+            Actions action = new Actions(driver);
+            action.moveToElement(e0).build().perform();
+            action.sendKeys(Keys.ENTER);
+
+            for (WebElement e: tcElements)
+            {
+                driver.switchTo().parentFrame().switchTo().frame("treeframe");
+                System.out.println(e.hashCode());
+
+                e.findElement(By.id("li")).click();
+                Thread.sleep(1000);
+                //Получаем цвет заголовка
+                driver.switchTo().parentFrame();
+                el = driver.switchTo().frame("workframe").findElement(By.cssSelector("#execution_history > div.passed"));
+                String elColor = el.getCssValue("background");
+                boolean isGreen = elColor.contains("rgb(0, 100, 0)");
+                System.out.println(elColor);
+                Assert.assertTrue(isGreen);
+                driver.findElement(By.linkText("Execute Tests")).click();
+
+                //Проверяем, что цвет заголовка зеленый
+          //      Point c = tcElements.get(0).getLocation();
+     //           Actions action = new Actions(driver);
+      //          action.moveToElement(tcElements.get(0), c.getX(), c.getY()).click().build().perform();
+
+                WebElement eDebud = tcElements.get(0);//driver.findElement(By.cssSelector("#ext-gen14"));
+                Point c = eDebud.getLocation();
+                Coordinates coord;
+//coord.
+
+                //Actions action = new Actions(driver);
+                //action.moveToElement(eDebud).click().build().perform();// moveToElement( eDebud, c.getX(), c.getY()).click().build().perform();
+
+
+            }
+
+        }
+
     }
 }
