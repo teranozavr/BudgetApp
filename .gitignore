@@ -4,3 +4,4 @@ target/
 *.iml
 /nbproject/
 /ajcore.*.txt
+*.log
