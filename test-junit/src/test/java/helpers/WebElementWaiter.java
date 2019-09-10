@@ -25,6 +25,7 @@ public class WebElementWaiter {
     {
 
         try {
+            System.out.println("Try to click element "+by.toString());
             element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.presenceOfElementLocated(by));
             element.click();
         }
@@ -37,6 +38,7 @@ public class WebElementWaiter {
     {
 
         try {
+            System.out.println("Try to click element "+el.toString());
             element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(el));
             element.click();
         }
@@ -48,6 +50,7 @@ public class WebElementWaiter {
     public static WebElement waitAndGetElement(By by)
     {
         try {
+            System.out.println("Try to get element "+by.toString());
             element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.presenceOfElementLocated(by));
         }
         catch (Exception ex){

@@ -94,7 +94,10 @@ public class Lesson6YandexMarketTest {
             }
         }
         //Отсортировать список товаров по цене (от меньшей к большей)
-        WebElement sortMenu = waitAndGetElement(By.cssSelector("body > div.main > div:nth-child(6) > div.n-filter-panel-dropdown.i-bem.n-filter-panel-dropdown_js_inited > div.n-filter-panel-dropdown__main"));
+        //WebElement sortMenu = waitAndGetElement(By.cssSelector("body > div.main > div:nth-child(6) > div.n-filter-panel-dropdown.i-bem.n-filter-panel-dropdown_js_inited > div.n-filter-panel-dropdown__main"));
+        //WebElement sortMenu = waitAndGetElement(By.xpath("/html/body/div[1]/div[5]/div[2]"));
+        WebElement sortMenu = waitAndGetElement(By.xpath("/html/body/div[1]/div[5]/div[1]/div[2]/div[1]/div[1]"));
+
         List<WebElement> sortElements;
         sortElements = waitAndGetElements(sortMenu, By.tagName("div"));
 
@@ -106,9 +109,16 @@ public class Lesson6YandexMarketTest {
 
         //Добавить первый в списке RedMi
         //Контейнер, содержащий элементы
-        WebElement phoneList = waitAndGetElement(By.cssSelector("body > div.main > div:nth-child(6) > div.layout.layout_type_search.i-bem > div.layout__col.i-bem.layout__col_search-results_normal > div.n-filter-applied-results.metrika.b-zone.i-bem.n-filter-applied-results_js_inited.b-zone_js_inited > div > div.n-snippet-list.n-snippet-list_type_grid.snippet-list_size_3.metrika.b-zone.b-spy-init.b-spy-events.i-bem.metrika_js_inited.snippet-list_js_inited.b-spy-init_js_inited.b-zone_js_inited"));
+        //WebElement phoneList = waitAndGetElement(By.cssSelector("body > div.main > div:nth-child(6) > div.layout.layout_type_search.i-bem > div.layout__col.i-bem.layout__col_search-results_normal > div.n-filter-applied-results.metrika.b-zone.i-bem.n-filter-applied-results_js_inited.b-zone_js_inited > div > div.n-snippet-list.n-snippet-list_type_grid.snippet-list_size_3.metrika.b-zone.b-spy-init.b-spy-events.i-bem.metrika_js_inited.snippet-list_js_inited.b-spy-init_js_inited.b-zone_js_inited"));
+        //WebElement phoneList = waitAndGetElement(By.className("layout layout_type_search i-bem"));
+        WebElement phoneList = waitAndGetElement(By.xpath("/html/body/div[1]/div[5]/div[2]"));
         List<WebElement> li = phoneList.findElements(By.tagName("div"));
 
+        for (WebElement e: li ) {
+            System.out.println(e.getAttribute("data-id").toString());
+        }
+        System.out.println("Всё");
+        /*
         for (WebElement e: li
                 ) {
 
@@ -119,7 +129,7 @@ public class Lesson6YandexMarketTest {
             {
 
             }
-        }
+        }*/
         //Проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
         //Добавить первый в списке Xiaomi
         //Проверить, что отобразилась плашка "Товар {имя товара} добавлен к сравнению"
@@ -129,7 +139,7 @@ public class Lesson6YandexMarketTest {
         //Проверить, что в списке характеристик появилась позиция "Операционная система"
         //Нажать на опцию "различающиеся характеристики"
         //Проверить, что позиция "Операционная система" не отображается в списке характеристик
-System.out.println();
+        //System.out.println();
         /*
         try {
             Assert.assertEquals(driver.getCurrentUrl(), "https://otus.ru/");
