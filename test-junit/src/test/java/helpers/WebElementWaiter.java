@@ -11,7 +11,6 @@ public class WebElementWaiter {
 
     public static WebDriverWait wait;
     public static WebElement element;
-    public static List<WebElement> elementsList;
     public static WebDriver webDriver;
 
     public static void WebElementWaiter(WebDriver driver, long timeout, long sleep)
@@ -47,11 +46,35 @@ public class WebElementWaiter {
         }
     }
 
+    public static void waitWhileElementExist(By by) {
+        System.out.println("Wait while element exist " + by.toString());
+        while (true) {
+            try {
+                webDriver.findElement(by);
+                System.out.println("Waiting...");
+                //wait.ignoring(java.lang.NullPointerException.class).withTimeout(Duration.ofMillis(1000));
+            } catch (Exception ex) {
+                System.out.println("Continue");
+                return;
+            }
+        }
+    }
+
+    public static void waitWhileElementNotClicable(By by) {
+        System.out.println("Wait while element not clicable " + by.toString());
+        try {
+                wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(by));
+            System.out.println("Continue");
+            } catch (Exception ex) {
+                return;
+            }
+    }
+
     public static WebElement waitAndGetElement(By by)
     {
         try {
             System.out.println("Try to get element "+by.toString());
-            element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.presenceOfElementLocated(by));
+            element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(by));
         }
         catch (Exception ex){
             System.err.println("Не найден элемент "+by.toString());
@@ -101,7 +124,9 @@ public class WebElementWaiter {
     {
         WebElement webElement;
         try {
-            wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(ancestorElement));
+            wait.ignoring(NoSuchElementException.class)
+                    .ignoring(java.lang.NullPointerException.class)
+                    .until(ExpectedConditions.elementToBeClickable(ancestorElement));
         }
         catch (Exception ex){
             System.err.println("Не найден элемент "+by.toString());
