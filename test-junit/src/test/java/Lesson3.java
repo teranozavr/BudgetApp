@@ -1,29 +1,30 @@
-import helpers.TestCaseElements;
-import junit.framework.TestCase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.util.SystemClock;
-import org.apache.logging.log4j.core.util.SystemNanoClock;
-import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.Coordinates;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import sun.util.calendar.LocalGregorianCalendar;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
+import static helpers.Colors.verifyColor;
 import static helpers.DriverFactory.createNewDriver;
-
+import static helpers.WebElementWaiter.WebElementWaiter;
+import static helpers.WebElementWaiter.waitAndClick;
+import static helpers.browserPropetry.browserPropetry;
+import static helpers.options.ChromeOpt.ChromeOpt;
+import static helpers.options.FirefoxOpt.FirefoxOpt;
+import static org.openqa.selenium.remote.BrowserType.CHROME;
+import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 /**
  * Created by alg_adm on 25.06.2019.
  */
@@ -31,12 +32,33 @@ public class Lesson3 {
 
     private static final Logger logger = LogManager.getLogger(FirstTest.class);
     public static WebDriver driver;
+    @Before
+    public void setup() {
+
+        System.setProperty("browser", "chrome");
+        switch (browserPropetry()) {
+            case (CHROME): {
+                ChromeOptions opt = ChromeOpt();
+                driver = createNewDriver(CHROME, opt);
+                WebElementWaiter(driver, 6000, 10);
+                return;
+            }
+            case (FIREFOX): {
+                FirefoxOptions opt = FirefoxOpt();
+                driver = createNewDriver(FIREFOX, opt);
+                WebElementWaiter(driver, 10, 2);
+                return;
+            }
+            default: {
+                System.out.println("Wrong browser name");
+            }
+        }
+
+    }
 
     public void createTestcase(String suiteName, String name, int stepsCount) throws Exception
     {
         Thread.sleep(5000);
-        //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //Переключаемся на treeframe
         driver.switchTo().parentFrame().switchTo().frame("treeframe");
 
         List<WebElement> treeNodes = driver.findElements(By.className("x-tree-node-anchor"));
@@ -106,13 +128,6 @@ public class Lesson3 {
         driver.findElement(By.cssSelector("#do_update_step_and_exit")).click();
     }
 
-    @Before
-    public void setUp() {
-        System.setProperty("browser","chrome");
-        String sysProp = System.getProperty("browser");
-        driver = createNewDriver(sysProp);
-    }
-
     @After
     public void tearDown() {
         if(driver != null)
@@ -122,7 +137,7 @@ public class Lesson3 {
     }
 
     @Test
-    public void CreateTests() throws Throwable
+    public void createTestCases() throws Throwable
     {
         //открываем тестлинк и логинимся
         driver.get("http://localhost/testlink/index.php");
@@ -155,6 +170,54 @@ public class Lesson3 {
         }
     }
     @Test
+    public void addTestCases() throws Throwable {
+        //открываем тестлинк и логинимся
+        driver.get("http://localhost/testlink/index.php");
+        driver.findElement(By.cssSelector("#tl_login")).sendKeys("admin");
+        driver.findElement(By.cssSelector("#tl_password")).sendKeys("admin");
+        driver.findElement(By.cssSelector("#login > div:nth-child(7) > input[type=submit]")).click();
+        Thread.sleep(5000);
+        driver.switchTo().parentFrame().switchTo().frame("mainframe");
+        driver.findElement(By.linkText("Add / Remove Test Cases")).click();
+
+        //Нажимаем Expand Tree
+        driver.switchTo().parentFrame().switchTo().frame("mainframe").switchTo().frame("treeframe");
+        driver.findElement(By.id("expand_tree")).click();
+        //Коллекция тесткейсов
+        Thread.sleep(5000);
+        driver.switchTo().parentFrame().switchTo().frame("treeframe");
+
+        //Находим элемент - дерево с тессетами
+        WebElement el = driver.findElement(By.cssSelector("#ext-gen14"));
+
+        List<WebElement> a = el.findElements(By.tagName("a"));
+        List<WebElement> tcElements = new ArrayList<>();
+        for (WebElement a1 : a
+                ) {
+            if (a1.getAttribute("href").contains("javascript:ETS")) tcElements.add(a1);
+        }
+
+        //Выбираем тестсет и кликаем на него
+        if (tcElements.size() > 0) {
+            System.out.println(tcElements.size());
+
+            for (int i=0; i< tcElements.size(); i++) {
+
+                driver.switchTo().parentFrame().switchTo().frame("treeframe");
+                waitAndClick(findTestSuitesByOrderNumber(i));
+
+                driver.switchTo().parentFrame();
+                driver.switchTo().frame("workframe");
+
+                //Добавляем тестсеты в тестран
+                driver.findElement(By.xpath("//*[@id=\"header-wrap\"]/div[2]/div/button[1]")).click();
+                driver.findElement(By.xpath("//*[@id=\"header-wrap\"]/div[2]/input[2]")).click();
+                Thread.sleep(5000);
+            }
+        }
+    }
+
+    @Test
     public void runTestCases() throws Throwable{
         //открываем тестлинк и логинимся
         driver.get("http://localhost/testlink/index.php");
@@ -170,71 +233,196 @@ public class Lesson3 {
         driver.switchTo().parentFrame().switchTo().frame("mainframe").switchTo().frame("treeframe");
         driver.findElement(By.id("expand_tree")).click();
         //Коллекция тесткейсов
-        //el.findElements(By.tagName("li"));
         Thread.sleep(5000);
-        //WebElement el = driver.findElement(By.cssSelector("#ext-gen22"));
-        //List<WebElement> els = el.findElements(By.cssSelector(" #ext-gen22 > li"));
-        //x-tree-node-anchor
-        //for(WebElement elem : els)
-        //{
-        //    System.out.println(elem.getText());
-        //}
-
         driver.switchTo().parentFrame().switchTo().frame("treeframe");
 
         //Находим элемент - дерево с тестами
         WebElement el =
-                //driver.findElement(By.className("x-panel-body x-panel-body-noheader"));
                 driver.findElement(By.cssSelector("#ext-gen14"));
         //Получаем список тесткейсов из дерева тесткейсов
-        //TestCaseElements tcElements = new TestCaseElements(el);
-        //System.out.println(tcElements.getTestCases().size());
-        List<WebElement> tcElements = new TestCaseElements(el).getTestCases();
+        List<WebElement> a = el.findElements(By.tagName("a"));
+        List<WebElement> tcElements = new ArrayList<>();
+        for (WebElement a1: a
+                ) {
+            if (a1.getAttribute("href").contains("javascript:ST")) tcElements.add(a1);
+        }
 
         //Выбираем тест и кликаем на него
         if(tcElements.size()>0){
             System.out.println(tcElements.size());
 
-
-            WebElement e0 = tcElements.get(1);
-            e0.click();
-            Actions action = new Actions(driver);
-            action.moveToElement(e0).build().perform();
-            action.sendKeys(Keys.ENTER);
-
-            for (WebElement e: tcElements)
+            for (int i=0; i<tcElements.size(); i++)// e: tcElements)
             {
+                boolean isBlack = false;
+                WebElement testCase = findTestCaseByOrderNumber(i);
+                //if(testCase!=null) tcName = testCase.getText();
+                //Выбрать любой тест, кликнуть на него
                 driver.switchTo().parentFrame().switchTo().frame("treeframe");
-                System.out.println(e.hashCode());
+                waitAndClick(testCase);
 
-                e.findElement(By.id("li")).click();
-                Thread.sleep(1000);
                 //Получаем цвет заголовка
                 driver.switchTo().parentFrame();
-                el = driver.switchTo().frame("workframe").findElement(By.cssSelector("#execution_history > div.passed"));
-                String elColor = el.getCssValue("background");
-                boolean isGreen = elColor.contains("rgb(0, 100, 0)");
-                System.out.println(elColor);
-                Assert.assertTrue(isGreen);
-                driver.findElement(By.linkText("Execute Tests")).click();
+                driver.switchTo().frame("workframe");
+                try {
+                    el = driver.findElement(By.xpath("//*[@id=\"execution_history\"]/div[2]"));
+                    if (el!=null) {
+                        String elColor = el.getCssValue("background");
+                        isBlack = verifyColor(elColor, "black");
+                    }
+                    else System.out.println("el is NULL");
+                }
+                catch (RuntimeException ex){};
 
-                //Проверяем, что цвет заголовка зеленый
-          //      Point c = tcElements.get(0).getLocation();
-     //           Actions action = new Actions(driver);
-      //          action.moveToElement(tcElements.get(0), c.getX(), c.getY()).click().build().perform();
+                if(isBlack)
+                {
+                    System.out.println("Проставить \"Пройден\" во всех шагах");
+                    //Проставить "Пройден" во всех шагах
+                    driver.switchTo().parentFrame();
+                    driver.switchTo().frame("workframe");
+                    List<WebElement> statusList = driver.findElements(By.className("step_status"));
+                    changeStatus(statusList, "passed");
 
-                WebElement eDebud = tcElements.get(0);//driver.findElement(By.cssSelector("#ext-gen14"));
-                Point c = eDebud.getLocation();
-                Coordinates coord;
-//coord.
+                    //Нажать на "passed"
+                    System.out.println("Нажать на \"passed\"");
+                    WebElement resultBox = driver.findElement(By.xpath("//*[@id=\"execSetResults\"]/div[10]/table[1]/tbody/tr/td[2]/div[2]"));
+                    setTestResult(resultBox, "passed");
 
-                //Actions action = new Actions(driver);
-                //action.moveToElement(eDebud).click().build().perform();// moveToElement( eDebud, c.getX(), c.getY()).click().build().perform();
+                    //Проверить что цвет в заголовке теста поменялся на зеленый
+                    System.out.println("Проверить что цвет в заголовке теста поменялся на зеленый");
+                    WebElement exHist = driver.findElement(By.xpath("//*[@id=\"execution_history\"]"));
+                    String background = exHist.findElement(By.className("passed")).getCssValue("background");
+                    Assert.assertTrue(verifyColor(background, "green"));
 
+                    //Проверить что цвет в дереве тестов поменялся на зеленый
+                    driver.switchTo().parentFrame().switchTo().frame("treeframe");
+                    WebElement currentTestCaseInTree = findTestCaseByOrderNumber(i);
+                    String testColor = currentTestCaseInTree.findElement(By.tagName("span")).findElement(By.tagName("span")).getCssValue("background-color");
+                    Assert.assertTrue(verifyColor(testColor, "lightGreen"))          ;
+                    System.out.println("lightGreen");
 
+                    //"Провалить" тест
+                    System.out.println("\"Провалить\" тест");
+                    driver.switchTo().parentFrame();
+                    driver.switchTo().frame("workframe");
+                    statusList = driver.findElements(By.className("step_status"));
+                    changeStatus(statusList, "failed");
+                    resultBox = driver.findElement(By.xpath("//*[@id=\"execSetResults\"]/div[10]/table[1]/tbody/tr/td[2]/div[2]"));
+                    setTestResult(resultBox, "failed");
+
+                    //9, 10 Проверить что цвет стал красным
+                    System.out.println("\"Провалить\" тест");
+
+                    //Проверить что цвет в заголовке теста поменялся на зеленый
+                    System.out.println("Проверить что цвет в заголовке теста поменялся на красный");
+                    exHist = driver.findElement(By.xpath("//*[@id=\"execution_history\"]"));
+                    background = exHist.findElement(By.className("failed")).getCssValue("background");
+                    Assert.assertTrue(verifyColor(background, "red"));
+
+                    //Проверить что цвет в дереве тестов поменялся на красный
+                    driver.switchTo().parentFrame().switchTo().frame("treeframe");
+                    currentTestCaseInTree = findTestCaseByOrderNumber(i);
+                    testColor = currentTestCaseInTree.findElement(By.tagName("span")).findElement(By.tagName("span")).getCssValue("background-color");
+                    Assert.assertTrue(verifyColor(testColor, "lightRed"))          ;
+                    System.out.println("lightGreen");
+
+                }
+            }
+        }
+    }
+
+    private void changeStatus(List<WebElement> statusList, String status){
+        for (WebElement e1: statusList
+                ) {
+            //Просставляем статусы Passed
+            Actions action = new Actions(driver);
+            action.moveToElement(e1).build().perform();
+            action.clickAndHold(e1).build().perform();
+            switch (status.toLowerCase()){
+                case("passed"): {
+                    action.sendKeys(Keys.ARROW_DOWN).build().perform();
+                    break;
+                }
+                case("failed"):{
+                    action.sendKeys(Keys.ARROW_DOWN).build().perform();
+                    action.sendKeys(Keys.ARROW_DOWN).build().perform();
+                    break;
+                }
             }
 
         }
-
     }
+
+    private static void setTestResult(WebElement resultBox, String status)
+    {
+        List<WebElement> resultBoxElements = resultBox.findElements(By.tagName("img"));
+
+        switch(status.toLowerCase()){
+            case("passed"):{
+                clickToElementWithTag(resultBoxElements, "Click to set to passed");
+                break;
+            }
+            case("failed"): {
+                clickToElementWithTag(resultBoxElements, "Click to set to failed");
+                break;
+            }
+            case("blocked"): {
+                clickToElementWithTag(resultBoxElements, "Click to set to blocked");
+                break;
+            }
+        }
+    }
+
+    private static void clickToElementWithTag(List<WebElement> resultBoxElements, String tag)
+    {
+        for (WebElement el: resultBoxElements
+                ) {
+                    try{
+                        if(el.getAttribute("title").equals(tag)){
+                            el.click();
+                        }
+                    }
+                    catch (RuntimeException ex) {
+                        System.out.println("У элемента нет title");
+                    }
+        }
+    }
+
+    private static WebElement findTestCaseByOrderNumber(int number)
+    {
+        return findTreeSetElementsByOrderNumber(number,"javascript:ST");
+    }
+
+    private static WebElement findTestSuitesByOrderNumber(int number)
+    {
+        return findTreeSetElementsByOrderNumber(number,"javascript:ETS");
+    }
+
+    private static WebElement findTreeSetElementsByOrderNumber(int number, String attribute){
+        driver.switchTo().parentFrame();
+
+        driver.switchTo().frame("treeframe");
+        //Находим элемент - дерево с тестами
+        WebElement el = driver.findElement(By.cssSelector("#ext-gen14"));
+        //Получаем список тесткейсов из дерева тесткейсов
+        List<WebElement> a = el.findElements(By.tagName("a"));
+        List<WebElement> tcElements = new ArrayList<>();
+        for (WebElement a1: a
+                ) {
+            if (a1.getAttribute("href").contains(attribute)) tcElements.add(a1);
+        }
+
+        //Выбираем тест и кликаем на него
+        if(tcElements.size()>0) {
+            System.out.println(tcElements.size());
+            return tcElements.get(number);
+        }
+        System.out.println("Тесткейс не найден!");
+        return null;
+    }
+
 }
+
+
+
+
+
