@@ -4,10 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
@@ -169,6 +166,51 @@ public class Lesson3 {
             createTestcase(suiteName, "Тест кейс", 3);
         }
     }
+
+    @Test
+    public void testProjectManagement() throws Throwable {
+        //открываем тестлинк и логинимся
+        String name = "My project "+System.currentTimeMillis();
+        String prefix = "MP"+System.currentTimeMillis();
+        String description = "Это мой первый проект"+System.currentTimeMillis();
+
+        driver.get("http://localhost/testlink/index.php");
+        driver.findElement(By.cssSelector("#tl_login")).sendKeys("admin");
+        driver.findElement(By.cssSelector("#tl_password")).sendKeys("admin");
+        driver.findElement(By.cssSelector("#login > div:nth-child(7) > input[type=submit]")).click();
+        Thread.sleep(1000);
+        driver.switchTo().parentFrame().switchTo().frame("mainframe");
+        driver.findElement(By.xpath("/html/body/div[3]/div[2]/a[1]")).click();
+        Thread.sleep(1000);
+        driver.switchTo().parentFrame().switchTo().frame("mainframe");
+        driver.findElement(By.id("create")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//*[@id=\"item_view\"]/tbody/tr[2]/td[2]/input")).click();
+        new Actions(driver).sendKeys(name).perform();
+        driver.findElement(By.xpath("//*[@id=\"item_view\"]/tbody/tr[3]/td[2]/input")).click();
+        new Actions(driver).sendKeys(prefix).perform();
+        driver.findElement(By.xpath("//*[@id=\"cke_1_contents\"]/iframe")).click();
+        new Actions(driver).sendKeys(description).perform();
+        driver.findElement(By.xpath("//*[@id=\"item_view\"]/tbody/tr[17]/td/div/input[3]")).click();
+        Thread.sleep(5000);
+
+        WebElement table = driver.findElement(By.xpath("//*[@id=\"item_view\"]"));
+        List<WebElement> aList = table.findElements(By.tagName("a"));
+        WebElement project = null;
+        for (WebElement a: aList
+                ) {
+            if(a.getText().equals(name)) project = a;
+        }
+
+        String xPathOfProject = getElementXPath(driver, project);
+        String tr = xPathOfProject.substring(28,29);
+        Assert.assertTrue(project.getText().equals(name));
+        WebElement projectDescription = driver.findElement(By.xpath("//*[@id=\"item_view\"]/tbody/tr["+tr+"]/td[2]/p"));
+        Assert.assertTrue(projectDescription.getText().equals(description));
+        WebElement projectStatus = driver.findElement(By.xpath("//*[@id=\"item_view\"]/tbody/tr["+tr+"]/td[8]/img"));
+        Assert.assertTrue(projectStatus.getAttribute("Title").equals("Public"));
+    }
+
     @Test
     public void addTestCases() throws Throwable {
         //открываем тестлинк и логинимся
@@ -328,6 +370,10 @@ public class Lesson3 {
                 }
             }
         }
+    }
+
+    public String getElementXPath(WebDriver driver, WebElement element) {
+        return (String)((JavascriptExecutor)driver).executeScript("gPt=function(c){if(c.id!==''){return'id(\"'+c.id+'\")'}if(c===document.body){return c.tagName}var a=0;var e=c.parentNode.childNodes;for(var b=0;b<e.length;b++){var d=e[b];if(d===c){return gPt(c.parentNode)+'/'+c.tagName+'['+(a+1)+']'}if(d.nodeType===1&&d.tagName===c.tagName){a++}}};return gPt(arguments[0]).toLowerCase();", element);
     }
 
     private void changeStatus(List<WebElement> statusList, String status){
