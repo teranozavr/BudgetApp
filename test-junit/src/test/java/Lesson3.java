@@ -5,8 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 
 import java.time.LocalDateTime;
@@ -14,14 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static helpers.Colors.verifyColor;
-import static helpers.DriverFactory.createNewDriver;
-import static helpers.WebElementWaiter.WebElementWaiter;
 import static helpers.WebElementWaiter.waitAndClick;
-import static helpers.browserPropetry.browserPropetry;
-import static helpers.options.ChromeOpt.ChromeOpt;
-import static helpers.options.FirefoxOpt.FirefoxOpt;
-import static org.openqa.selenium.remote.BrowserType.CHROME;
-import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 /**
  * Created by alg_adm on 25.06.2019.
  */
@@ -30,28 +21,7 @@ public class Lesson3 {
     private static final Logger logger = LogManager.getLogger(FirstTest.class);
     public static WebDriver driver;
     @Before
-    public void setup() {
 
-        System.setProperty("browser", "chrome");
-        switch (browserPropetry()) {
-            case (CHROME): {
-                ChromeOptions opt = ChromeOpt();
-                driver = createNewDriver(CHROME, opt);
-                WebElementWaiter(driver, 6000, 10);
-                return;
-            }
-            case (FIREFOX): {
-                FirefoxOptions opt = FirefoxOpt();
-                driver = createNewDriver(FIREFOX, opt);
-                WebElementWaiter(driver, 10, 2);
-                return;
-            }
-            default: {
-                System.out.println("Wrong browser name");
-            }
-        }
-
-    }
 
     public void createTestcase(String suiteName, String name, int stepsCount) throws Exception
     {

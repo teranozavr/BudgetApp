@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-import static helpers.DriverFactory.createNewDriver;
+import static helpers.Setuper.setupDriver;
 
 
 /**
@@ -18,9 +18,8 @@ public class TestLinkUITests {
     public static WebDriver driver;
 
     @Before
-    public void setUp() {
-        String sysProp = System.getProperty("browser");
-        driver = createNewDriver(sysProp);
+    public void setup() {
+        driver=setupDriver();
     }
 
     @After

@@ -1,14 +1,13 @@
 package helpers;
 
-import gherkin.lexer.Fi;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import okio.Options;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.BrowserType;
+
+import static helpers.WebElementWaiter.WebElementWaiter;
+import static helpers.options.ChromeOpt.ChromeOpt;
+import static helpers.options.FirefoxOpt.FirefoxOpt;
 import static org.openqa.selenium.remote.BrowserType.CHROME;
 import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 
@@ -16,21 +15,30 @@ import static org.openqa.selenium.remote.BrowserType.FIREFOX;
  * Created by alg_adm on 20.06.2019.
  */
 public class DriverFactory {
+    private static WebDriver driver;
+    private static MutableCapabilities caps;
 
-    public static WebDriver createNewDriver(String browserName, Object options) {
+    public static WebDriver createNewDriver(String browserName, MutableCapabilities capabilities) {
 
         if (browserName == null)
             throw new RuntimeException(browserName + " is not a parameter!");
 
         if (browserName.isEmpty())
+
             throw new RuntimeException(browserName + " is empty!");
 
         switch (browserName.toLowerCase()) {
             case CHROME: {
-                return options==null ? new ChromeDriver() : new ChromeDriver((ChromeOptions )options);
+                caps = ChromeOpt();
+                driver = capabilities==null ? new ChromeDriver(caps) : new ChromeDriver(capabilities);
+                WebElementWaiter(driver, 6000, 10);
+                return driver;
             }
             case FIREFOX: {
-                return new FirefoxDriver((FirefoxOptions) options);
+                caps = FirefoxOpt();
+                driver = capabilities==null ? new FirefoxDriver(caps) : new FirefoxDriver(capabilities);
+                WebElementWaiter(driver, 6000, 10);
+                return driver;
             }
             default: {
                 System.out.println("****************Browser name error: " + browserName);

@@ -1,16 +1,24 @@
 package helpers.options;
 
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class ChromeOpt {
-    public static ChromeOptions ChromeOpt()
+    public static MutableCapabilities ChromeOpt()
     {
-        ChromeOptions opt = new ChromeOptions();
-        opt.setBinary("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
-        opt.addArguments("--start-maximized");
-        //opt.setBinary("C:\\Users\\14500611\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe");
         System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\Drivers\\ChromeDriver\\v76\\chromedriver.exe");
-        return opt;
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        ChromeOptions options = new ChromeOptions();
+        try {
+            options.setBinary("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
+        }
+        catch (Exception ex) {
+            System.err.println("Настройте путь к chrome.exe в классе ChromeOpt");
+        }
+        options.addArguments("--start-maximized");
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        return capabilities;
     }
 
 }
