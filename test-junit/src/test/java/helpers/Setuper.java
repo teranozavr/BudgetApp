@@ -6,7 +6,6 @@ import static helpers.DriverFactory.createNewDriver;
 
 public class Setuper {
 
-
     public static WebDriver setupDriver()
     {
         String driverName = System.getProperty("browser");

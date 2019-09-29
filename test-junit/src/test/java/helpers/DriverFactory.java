@@ -31,13 +31,13 @@ public class DriverFactory {
             case CHROME: {
                 caps = ChromeOpt();
                 driver = capabilities==null ? new ChromeDriver(caps) : new ChromeDriver(capabilities);
-                WebElementWaiter(driver, 6000, 10);
+                WebElementWaiter(driver, 6, 10);
                 return driver;
             }
             case FIREFOX: {
                 caps = FirefoxOpt();
                 driver = capabilities==null ? new FirefoxDriver(caps) : new FirefoxDriver(capabilities);
-                WebElementWaiter(driver, 6000, 10);
+                WebElementWaiter(driver, 6, 10);
                 return driver;
             }
             default: {

@@ -19,6 +19,8 @@ public class Lesson6YandexMarketTest {
     private static final Logger logger = LogManager.getLogger(Lesson6YandexMarketTest.class);
     public static WebDriver driver;
 
+
+
     @Before
     public void setup() {
         driver=setupDriver();

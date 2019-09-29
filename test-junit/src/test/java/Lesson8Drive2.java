@@ -8,19 +8,19 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.nio.file.WatchEvent;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static helpers.DriverFactory.createNewDriver;
 
-public class Drive2Lesson {
+public class Lesson8Drive2 {
     private static final Logger logger = LogManager.getLogger(FirstTest.class);
     public static WebDriver driver;
+  /*  private Drive2CarsPage drive2CarsPage;
 
+    public Lesson8Drive2(){
+        this.drive2CarsPage = new Drive2CarsPage();
+    }*/
     @Before
     public void setUp() {
         System.setProperty("browser","chrome");

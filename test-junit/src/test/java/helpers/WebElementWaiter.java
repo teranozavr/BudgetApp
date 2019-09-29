@@ -1,10 +1,13 @@
 package helpers;
 
-import com.google.sitebricks.client.Web;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebElementWaiter {
@@ -51,6 +54,20 @@ public class WebElementWaiter {
         while (true) {
             try {
                 webDriver.findElement(by);
+                System.out.println("Waiting...");
+                //wait.ignoring(java.lang.NullPointerException.class).withTimeout(Duration.ofMillis(1000));
+            } catch (Exception ex) {
+                System.out.println("Continue");
+                return;
+            }
+        }
+    }
+
+    public static void waitWhileElementExist(WebElement element) {
+        System.out.println("Wait while element exist " + element.toString());
+        while (true) {
+            try {
+                element.isDisplayed();
                 System.out.println("Waiting...");
                 //wait.ignoring(java.lang.NullPointerException.class).withTimeout(Duration.ofMillis(1000));
             } catch (Exception ex) {
@@ -133,5 +150,129 @@ public class WebElementWaiter {
         }
         webElement = ancestorElement.findElement(by);
         return webElement;
+    }
+
+    //У родительского элемента "ancestorElement" ищет элемент по селектору "by", атрибут "attribute" которого  имеет значение "attributeValue"
+    //P.S.: такого нигде не видел, но это очень удобно!
+
+    public static WebElement waitAndGetElement(WebElement ancestorElement, By by, String attribute, String attributeValue)
+    {
+        List<WebElement> elementList;
+        if (ancestorElement!=null) {
+
+            try {
+                wait.ignoring(NoSuchElementException.class)
+                        .ignoring(java.lang.NullPointerException.class)
+                        .until(ExpectedConditions.elementToBeClickable(ancestorElement));
+            } catch (Exception ex) {
+                System.err.println("Не найден элемент " + by.toString());
+            }
+
+            elementList = waitAndGetElements(ancestorElement, by);
+        }
+        else{
+            elementList = waitAndGetElements(by);
+        }
+
+        for (WebElement e : elementList
+             ) {
+            try{
+                if (attribute!=null)
+                {
+                    if(e.getAttribute(attribute).equals(attributeValue))
+                    {
+                        return e;
+                    }
+                }
+                else
+                {
+                    if(e.getText().equals(attributeValue))
+                    {
+                        return e;
+                    }
+                }
+            }
+            catch (Exception ex) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public static void waitAndClickElement(WebElement ancestorElement, By by, String attribute, String attributeValue)
+    {
+        waitAndGetElement(ancestorElement, by, attribute, attributeValue).click();
+    }
+
+    public static void waitAndClickElement(By by, String attribute, String attributeValue)
+    {
+        waitAndClick(waitAndGetElement(by, attribute, attributeValue));
+    }
+
+    public static WebElement waitAndGetElement(By by, String attribute, String attributeValue){
+        return waitAndGetElement(null, by, attribute, attributeValue);
+    }
+
+    public static WebElement waitAndGetElement(WebElement element)
+    {
+        System.out.println("Try to get element "+element.toString());
+        try {
+            wait.ignoring(NoSuchElementException.class)
+                    .ignoring(java.lang.NullPointerException.class)
+                    .until(ExpectedConditions.elementToBeClickable(element));
+        }
+        catch (Exception ex){
+            System.err.println("Не найден элемент "+element.toString());
+        }
+        return element;
+    }
+
+    public static List<WebElement> waitAndGetElements(WebElement ancestorElement, By by, String attribute, String attributeValue)
+    {
+        List<WebElement> elementList;
+        List<WebElement> resultList = new ArrayList<>();
+
+        if (ancestorElement!=null) {
+            try {
+                wait.ignoring(NoSuchElementException.class)
+                        .ignoring(java.lang.NullPointerException.class)
+                        .until(ExpectedConditions.elementToBeClickable(ancestorElement));
+            } catch (Exception ex) {
+                System.err.println("Не найден элемент " + by.toString());
+            }
+
+            elementList = waitAndGetElements(ancestorElement, by);
+        }
+        else{
+            elementList = waitAndGetElements(by);
+        }
+
+        for (WebElement e : elementList
+                ) {
+            try{
+                if (attribute!=null)
+                {
+                    if(e.getAttribute(attribute).equals(attributeValue))
+                    {
+                        resultList.add(e);
+                    }
+                }
+                else
+                {
+                    if(e.getText().equals(attributeValue))
+                    {
+                        resultList.add(e);
+                    }
+                }
+            }
+            catch (Exception ex) {
+                return null;
+            }
+        }
+        return resultList.size()>0 ? resultList : null;
+    }
+
+    public static List<WebElement> waitAndGetElements(By by, String attribute, String attributeValue){
+        return waitAndGetElements(null, by, attribute, attributeValue);
     }
 }
