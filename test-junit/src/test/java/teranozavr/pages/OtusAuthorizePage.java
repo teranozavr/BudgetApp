@@ -1,10 +1,9 @@
-package pages;
+package teranozavr.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import static helpers.WebElementWaiter.*;
+import teranozavr.helpers.WebElementWaiter;
 
 /**
  * Created by Admin on 29.09.2019.
@@ -24,8 +23,8 @@ public class OtusAuthorizePage extends AbstractPage {
     }
 
     public void authorize(String login, String password){
-        waitAndGetElement(emailBox).sendKeys(login);
-        waitAndGetElement(passwordBox).sendKeys(password);
-        waitAndClick(loginButton);
+        WebElementWaiter.waitAndGetElement(emailBox).sendKeys(login);
+        WebElementWaiter.waitAndGetElement(passwordBox).sendKeys(password);
+        WebElementWaiter.waitAndClick(loginButton);
     }
 }

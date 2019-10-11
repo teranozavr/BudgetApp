@@ -1,11 +1,11 @@
-package pages;
+package teranozavr.pages;
 
-import helpers.WebElementWaiter;
+import teranozavr.helpers.WebElementWaiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static helpers.WebElementWaiter.waitAndClick;
+import static teranozavr.helpers.WebElementWaiter.waitAndClick;
 
 
 /**
@@ -26,7 +26,7 @@ public class MainPage extends AbstractPage {
     }
 
     public void authorize(String login, String password){
-        waitAndClick(loginButton);
+        WebElementWaiter.waitAndClick(loginButton);
         OtusAuthorizePage otusAuthPage = new OtusAuthorizePage(driver);
         otusAuthPage.authorize(login,password);
         WebElementWaiter.waitWhileElementExist (loginButton);

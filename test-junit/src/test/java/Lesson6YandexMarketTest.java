@@ -12,8 +12,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import static helpers.Setuper.setupDriver;
-import static helpers.WebElementWaiter.*;
+import static teranozavr.helpers.Setuper.setupDriver;
 
 public class Lesson6YandexMarketTest {
     private static final Logger logger = LogManager.getLogger(Lesson6YandexMarketTest.class);

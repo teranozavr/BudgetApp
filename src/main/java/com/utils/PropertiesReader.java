@@ -22,21 +22,21 @@ public class PropertiesReader {
     }
 
     public String getURLProperty(String propertyKey) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resourses/properties/URL.properties")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/teranozavr.Lesson15.test/resourses/properties/URL.properties")));
         properties.load(reader);
         reader.close();
         return properties.getProperty(propertyKey);
     }
 
     public String getTestDataProperty(String propertyKey) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resourses/properties/testData.properties")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/teranozavr.Lesson15.test/resourses/properties/testData.properties")));
         properties.load(reader);
         reader.close();
         return properties.getProperty(propertyKey);
     }
 
     public String getALMProperty(String propertyKey) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resourses/properties/alm.properties")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/teranozavr.Lesson15.test/resourses/properties/alm.properties")));
         properties.load(reader);
         reader.close();
         return properties.getProperty(propertyKey);

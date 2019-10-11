@@ -1,4 +1,4 @@
-package helpers;
+package teranozavr.helpers;
 
 /**
  * Created by Admin on 21.09.2019.

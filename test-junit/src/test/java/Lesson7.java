@@ -30,7 +30,7 @@ public class Lesson7 {
     public void beforeTestActions() throws Exception{
         server = new ProxyServer(4444);
         server.start();
-        System.setProperty("webdriver.chrome.driver", "src\\\\test\\\\resources\\\\Drivers\\\\ChromeDriver\\\\v76\\\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src\\\\teranozavr.Lesson15.test\\\\resources\\\\Drivers\\\\ChromeDriver\\\\v76\\\\chromedriver.exe");
         server.seleniumProxy();
         proxy.setHttpProxy("localhost:4444");
         capabilities.setCapability(CapabilityType.PROXY, proxy);

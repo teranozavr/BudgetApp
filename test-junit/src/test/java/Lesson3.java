@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static helpers.Colors.verifyColor;
-import static helpers.WebElementWaiter.waitAndClick;
+import static teranozavr.helpers.Colors.verifyColor;
+import static teranozavr.helpers.WebElementWaiter.waitAndClick;
 /**
  * Created by alg_adm on 25.06.2019.
  */

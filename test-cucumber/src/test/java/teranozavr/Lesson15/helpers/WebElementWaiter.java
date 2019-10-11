@@ -1,34 +1,43 @@
-package helpers;
+package teranozavr.Lesson15.helpers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class WebElementWaiter {
 
-    public static WebDriverWait wait;
-    public static WebElement element;
-    public static WebDriver webDriver;
+    public   WebDriverWait wait;
+    public   WebElement element;
+    public   WebDriver webDriver;
 
-    public static void WebElementWaiter(WebDriver driver, long timeout, long sleep)
 
-    {
-        wait = new WebDriverWait(driver, timeout, sleep);
+    @Autowired
+    WebDriver driver;
+
+    @PostConstruct
+    private void init() {
+        PageFactory.initElements(driver, this);
+        wait = new WebDriverWait(driver, 6, 10);
         webDriver = driver;
     }
 
-    public static void waitAndClick(By by)
+    public   void waitAndClick(By by)
     {
 
         try {
             System.out.println("Try to click element "+by.toString());
-            element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.presenceOfElementLocated(by));
+            element = wait.ignoring(NullPointerException.class).until(ExpectedConditions.presenceOfElementLocated(by));
             element.click();
         }
         catch (Exception ex){
@@ -36,12 +45,12 @@ public class WebElementWaiter {
         }
     }
 
-    public static void waitAndClick(WebElement el)
+    public   void waitAndClick(WebElement el)
     {
 
         try {
             System.out.println("Try to click element "+el.toString());
-            element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(el));
+            element = wait.ignoring(NullPointerException.class).until(ExpectedConditions.elementToBeClickable(el));
             element.click();
         }
         catch (Exception ex){
@@ -49,7 +58,7 @@ public class WebElementWaiter {
         }
     }
 
-    public static void waitWhileElementExist(By by) {
+    public   void waitWhileElementExist(By by) {
         System.out.println("Wait while element exist " + by.toString());
         while (true) {
             try {
@@ -63,7 +72,7 @@ public class WebElementWaiter {
         }
     }
 
-    public static void waitWhileElementExist(WebElement element) {
+    public   void waitWhileElementExist(WebElement element) {
         System.out.println("Wait while element exist " + element.toString());
         while (true) {
             try {
@@ -77,21 +86,21 @@ public class WebElementWaiter {
         }
     }
 
-    public static void waitWhileElementNotClicable(By by) {
+    public   void waitWhileElementNotClicable(By by) {
         System.out.println("Wait while element not clicable " + by.toString());
         try {
-                wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(by));
+                wait.ignoring(NullPointerException.class).until(ExpectedConditions.elementToBeClickable(by));
             System.out.println("Continue");
             } catch (Exception ex) {
                 return;
             }
     }
 
-    public static WebElement waitAndGetElement(By by)
+    public   WebElement waitAndGetElement(By by)
     {
         try {
             System.out.println("Try to get element "+by.toString());
-            element = wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(by));
+            element = wait.ignoring(NullPointerException.class).until(ExpectedConditions.elementToBeClickable(by));
         }
         catch (Exception ex){
             System.err.println("Не найден элемент "+by.toString());
@@ -99,10 +108,10 @@ public class WebElementWaiter {
         return element;
     }
 
-    public static List<WebElement> waitAndGetElements(List<WebElement> li)
+    public   List<WebElement> waitAndGetElements(List<WebElement> li)
     {
         try {
-            wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(li.get(0)));
+            wait.ignoring(NullPointerException.class).until(ExpectedConditions.elementToBeClickable(li.get(0)));
 
         }
         catch (Exception ex){
@@ -111,11 +120,11 @@ public class WebElementWaiter {
         return li;
     }
 
-    public static List<WebElement> waitAndGetElements(By by)
+    public   List<WebElement> waitAndGetElements(By by)
     {
         List<WebElement> webElements;
         try {
-            wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.presenceOfElementLocated(by));
+            wait.ignoring(NullPointerException.class).until(ExpectedConditions.presenceOfElementLocated(by));
         }
         catch (Exception ex){
             System.err.println("Не найден элемент "+by.toString());
@@ -124,11 +133,11 @@ public class WebElementWaiter {
         return webElements;
     }
 
-    public static List<WebElement> waitAndGetElements(WebElement ancestorElement, By by)
+    public   List<WebElement> waitAndGetElements(WebElement ancestorElement, By by)
     {
         List<WebElement> webElements;
         try {
-            wait.ignoring(java.lang.NullPointerException.class).until(ExpectedConditions.elementToBeClickable(ancestorElement));
+            wait.ignoring(NullPointerException.class).until(ExpectedConditions.elementToBeClickable(ancestorElement));
         }
         catch (Exception ex){
             System.err.println("Не найден элемент "+by.toString());
@@ -137,12 +146,12 @@ public class WebElementWaiter {
         return webElements;
     }
 
-    public static WebElement waitAndGetElement(WebElement ancestorElement, By by)
+    public   WebElement waitAndGetElement(WebElement ancestorElement, By by)
     {
         WebElement webElement;
         try {
             wait.ignoring(NoSuchElementException.class)
-                    .ignoring(java.lang.NullPointerException.class)
+                    .ignoring(NullPointerException.class)
                     .until(ExpectedConditions.elementToBeClickable(ancestorElement));
         }
         catch (Exception ex){
@@ -155,14 +164,14 @@ public class WebElementWaiter {
     //У родительского элемента "ancestorElement" ищет элемент по селектору "by", атрибут "attribute" которого  имеет значение "attributeValue"
     //P.S.: такого нигде не видел, но это очень удобно!
 
-    public static WebElement waitAndGetElement(WebElement ancestorElement, By by, String attribute, String attributeValue)
+    public   WebElement waitAndGetElement(WebElement ancestorElement, By by, String attribute, String attributeValue)
     {
         List<WebElement> elementList;
         if (ancestorElement!=null) {
 
             try {
                 wait.ignoring(NoSuchElementException.class)
-                        .ignoring(java.lang.NullPointerException.class)
+                        .ignoring(NullPointerException.class)
                         .until(ExpectedConditions.elementToBeClickable(ancestorElement));
             } catch (Exception ex) {
                 System.err.println("Не найден элемент " + by.toString());
@@ -199,26 +208,26 @@ public class WebElementWaiter {
         return null;
     }
 
-    public static void waitAndClickElement(WebElement ancestorElement, By by, String attribute, String attributeValue)
+    public   void waitAndClickElement(WebElement ancestorElement, By by, String attribute, String attributeValue)
     {
         waitAndGetElement(ancestorElement, by, attribute, attributeValue).click();
     }
 
-    public static void waitAndClickElement(By by, String attribute, String attributeValue)
+    public   void waitAndClickElement(By by, String attribute, String attributeValue)
     {
         waitAndClick(waitAndGetElement(by, attribute, attributeValue));
     }
 
-    public static WebElement waitAndGetElement(By by, String attribute, String attributeValue){
+    public   WebElement waitAndGetElement(By by, String attribute, String attributeValue){
         return waitAndGetElement(null, by, attribute, attributeValue);
     }
 
-    public static WebElement waitAndGetElement(WebElement element)
+    public   WebElement waitAndGetElement(WebElement element)
     {
         System.out.println("Try to get element "+element.toString());
         try {
             wait.ignoring(NoSuchElementException.class)
-                    .ignoring(java.lang.NullPointerException.class)
+                    .ignoring(NullPointerException.class)
                     .until(ExpectedConditions.elementToBeClickable(element));
         }
         catch (Exception ex){
@@ -227,7 +236,7 @@ public class WebElementWaiter {
         return element;
     }
 
-    public static List<WebElement> waitAndGetElements(WebElement ancestorElement, By by, String attribute, String attributeValue)
+    public   List<WebElement> waitAndGetElements(WebElement ancestorElement, By by, String attribute, String attributeValue)
     {
         List<WebElement> elementList;
         List<WebElement> resultList = new ArrayList<>();
@@ -235,7 +244,7 @@ public class WebElementWaiter {
         if (ancestorElement!=null) {
             try {
                 wait.ignoring(NoSuchElementException.class)
-                        .ignoring(java.lang.NullPointerException.class)
+                        .ignoring(NullPointerException.class)
                         .until(ExpectedConditions.elementToBeClickable(ancestorElement));
             } catch (Exception ex) {
                 System.err.println("Не найден элемент " + by.toString());
@@ -272,7 +281,7 @@ public class WebElementWaiter {
         return resultList.size()>0 ? resultList : null;
     }
 
-    public static List<WebElement> waitAndGetElements(By by, String attribute, String attributeValue){
+    public   List<WebElement> waitAndGetElements(By by, String attribute, String attributeValue){
         return waitAndGetElements(null, by, attribute, attributeValue);
     }
 }

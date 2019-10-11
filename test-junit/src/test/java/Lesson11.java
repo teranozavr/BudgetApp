@@ -1,4 +1,4 @@
-import helpers.AuthData;
+import teranozavr.helpers.AuthData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
@@ -6,10 +6,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import pages.MainPage;
-import pages.OtusLK;
+import teranozavr.pages.MainPage;
+import teranozavr.pages.OtusLK;
 
-import static helpers.Setuper.setupDriver;
+import static teranozavr.helpers.Setuper.setupDriver;
 
 /**
  * Created by Admin on 28.09.2019.
@@ -33,8 +33,8 @@ public class Lesson11 {
         //Авторизоваться на сайте
         AuthData auth = new AuthData();
         mainPage.authorize(auth.getLogin(),auth.getPassword());
-        //Подсказка: для запуска используй команду: clean test -Dbrowser=chrome -Dtest=Lesson11 -Dlogin=Логин -Dpassword=Пароль
-        logger.info("Подсказка: для запуска используй команду: clean test -Dbrowser=chrome -Dtest=Lesson11 -Dlogin=Логин -Dpassword=Пароль");
+        //Подсказка: для запуска используй команду: clean teranozavr.Lesson15.test -Dbrowser=chrome -Dtest=Lesson11 -Dlogin=Логин -Dpassword=Пароль
+        logger.info("Подсказка: для запуска используй команду: clean teranozavr.Lesson15.test -Dbrowser=chrome -Dtest=Lesson11 -Dlogin=Логин -Dpassword=Пароль");
 
         //Войти в личный кабинет
         logger.info("Войти в личный кабинет");
