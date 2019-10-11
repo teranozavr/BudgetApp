@@ -1,30 +1,33 @@
 package com.cucumber.pages;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import com.utils.PropertiesReader;
-import java.io.IOException;
+
+import javax.annotation.PostConstruct;
 
 @Component
-public class OtusPage extends Page {
+public class OtusPage{
 
-    public void open() throws Throwable
-    {
-        String URL=PropertiesReader.getInstance().getURLProperty("Otus.main.page");
-        //open(URL);
+    @Autowired
+    Environment env;
+
+    @Autowired
+    WebDriver driver;
+
+    @PostConstruct
+    private void init() {
+        PageFactory.initElements(driver, this);
+        // driver.manage().window().maximize();
+        // driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-  /*  public String getUrl()
+    public void open()
     {
-        Page p = new Page();
-        String URL = p.getUrl();
-        return(URL);
+        //String URL=PropertiesReader.getInstance().getURLProperty("Otus.main.page");
+        String url = env.getProperty("Otus.main.page");
+        driver.get(url);
     }
-
-    @FindBy(name = "authorizeURL")
-    public WebElement authorizeField;
-    */
 }

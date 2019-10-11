@@ -42,7 +42,6 @@ public class GosUslugiMainPageStepdefs {
         mainPage.checkUrl(arg0);
     }
 
-
     @Когда("пользователь нажал на ФИО")
     public void пользовательНажалНаФИО() {
         mainPage.fioClick();

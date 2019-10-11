@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static teranozavr.helpers.Setuper.setupDriver;
+import static teranozavr.helpers.WebElementWaiter.*;
 
 public class Lesson6YandexMarketTest {
     private static final Logger logger = LogManager.getLogger(Lesson6YandexMarketTest.class);

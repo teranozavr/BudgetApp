@@ -20,9 +20,6 @@ public class MainPage {
 
     @Autowired
     private WebDriver driver;
-/*
-    @Autowired
-    private LoginBlock loginBlock;*/
 
     @Autowired
     private Environment env;
