@@ -7,7 +7,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class ChromeOpt {
     public static MutableCapabilities ChromeOpt()
     {
-        System.setProperty("webdriver.chrome.driver", "src\\teranozavr.Lesson15.test\\resources\\Drivers\\ChromeDriver\\v76\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\Drivers\\ChromeDriver\\v76\\chromedriver.exe");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         ChromeOptions options = new ChromeOptions();
         try {

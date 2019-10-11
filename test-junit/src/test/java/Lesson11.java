@@ -26,7 +26,6 @@ public class Lesson11 {
     @Test
     public void search() {
 
-
         //Открыть https://otus.ru
         logger.info("Открыть https://otus.ru");
         MainPage mainPage = new MainPage(driver);
@@ -71,10 +70,4 @@ public class Lesson11 {
             driver.quit();
         }
     }
-
-    private void getAuthData()
-    {
-
-    }
-
 }

@@ -8,8 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>teranozavr.Lesson15.test-testng</artifactId>
+    <artifactId>test-testng</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
