@@ -7,7 +7,7 @@ import org.springframework.test.context.TestPropertySource;
 
 @ContextConfiguration(classes = {SpringIntegrationTest.class})
 @Configuration
-@TestPropertySource("classpath:properties/test-ebvironment.properties")
+@TestPropertySource("classpath:properties/teranozavr.Lesson15.test-ebvironment.properties")
 @ComponentScan(basePackages = "com")
 public class SpringIntegrationTest {
 }

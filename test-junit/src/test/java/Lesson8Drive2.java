@@ -11,7 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
-import static helpers.DriverFactory.createNewDriver;
+import static teranozavr.helpers.DriverFactory.createNewDriver;
 
 public class Lesson8Drive2 {
     private static final Logger logger = LogManager.getLogger(FirstTest.class);

@@ -1,13 +1,13 @@
-package helpers;
+package teranozavr.helpers;
 
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import static helpers.WebElementWaiter.WebElementWaiter;
-import static helpers.options.ChromeOpt.ChromeOpt;
-import static helpers.options.FirefoxOpt.FirefoxOpt;
+import static teranozavr.helpers.WebElementWaiter.WebElementWaiter;
+import static teranozavr.helpers.options.ChromeOpt.ChromeOpt;
+import static teranozavr.helpers.options.FirefoxOpt.FirefoxOpt;
 import static org.openqa.selenium.remote.BrowserType.CHROME;
 import static org.openqa.selenium.remote.BrowserType.FIREFOX;
 

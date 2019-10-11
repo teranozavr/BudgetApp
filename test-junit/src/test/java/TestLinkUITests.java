@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 
-import static helpers.Setuper.setupDriver;
+import static teranozavr.helpers.Setuper.setupDriver;
 
 
 /**

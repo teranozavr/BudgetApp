@@ -1,4 +1,4 @@
-package helpers.options;
+package teranozavr.helpers.options;
 
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -6,7 +6,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class FirefoxOpt {
     public static MutableCapabilities FirefoxOpt(){
-        System.setProperty("webdriver.gecko.driver", "src\\test\\resources\\Drivers\\Geckodriver\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "src\\teranozavr.Lesson15.test\\resources\\Drivers\\Geckodriver\\geckodriver.exe");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         FirefoxOptions options = new FirefoxOptions();
         try {

@@ -1,10 +1,8 @@
-package helpers;
+package teranozavr.helpers;
 
-import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 

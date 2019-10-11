@@ -18,7 +18,7 @@ public class Remote {
     @Test
     public void testAlert() throws Exception {
 
-        System.setProperty("webdriver.chrome.driver","C:/GIT/Autotest/test-junit/src/test/resources//Driver/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:/GIT/Autotest/teranozavr.Lesson15.test-junit/src/teranozavr.Lesson15.test/resources//Driver/chromedriver.exe");
 
         Capabilities c1=new Capabilities() {
             @Override

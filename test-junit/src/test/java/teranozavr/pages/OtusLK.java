@@ -1,4 +1,4 @@
-package pages;
+package teranozavr.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static helpers.WebElementWaiter.*;
+import static teranozavr.helpers.WebElementWaiter.*;
 
 /**
  * Created by Admin on 29.09.2019.
