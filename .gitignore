@@ -1,7 +1,0 @@
-target/
-.project/
-.idea/
-*.iml
-/nbproject/
-/ajcore.*.
-*.gz
