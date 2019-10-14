@@ -13,25 +13,13 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 @Component
-public class LoginPage {
+public class LoginPage extends AbstractPage {
 
-    @Autowired
-    private WebDriver driver;
-
-    @Autowired
-    private Environment env;
-
-    // =] теперь он на спринге
-    @Autowired
-    private WebElementWaiter webElementWaiter;
 
     @FindBy(id = "mobileOrEmail")
     private WebElement mobileOrEmailField;
 
-    @PostConstruct
-    private void init() {
-        PageFactory.initElements(driver, this);
-    }
+
 
     public void open() {
         String url = env.getProperty("budgetapp.host.url");
