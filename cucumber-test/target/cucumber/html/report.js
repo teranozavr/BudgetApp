@@ -22,6 +22,16 @@ formatter.match({
 formatter.result({
   "status": "passed"
 });
+formatter.step({
+  "name": "пользователь открыл страницу SignUp",
+  "keyword": "Дано "
+});
+formatter.match({
+  "location": "SignUpPageStepdefs.пользовательОткрылСтраницуSignUp()"
+});
+formatter.result({
+  "status": "passed"
+});
 formatter.scenario({
   "name": "успешная авторизация",
   "description": "",

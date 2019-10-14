@@ -11,7 +11,7 @@
         "steps": [
           {
             "result": {
-              "duration": 2316211100,
+              "duration": 1321755300,
               "status": "passed"
             },
             "line": 4,
@@ -20,15 +20,27 @@
               "location": "LoginPageStepdefs.пользовательОткрылСтраницу()"
             },
             "keyword": "Дано "
+          },
+          {
+            "result": {
+              "duration": 373316500,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "пользователь открыл страницу SignUp",
+            "match": {
+              "location": "SignUpPageStepdefs.пользовательОткрылСтраницуSignUp()"
+            },
+            "keyword": "Дано "
           }
         ]
       },
       {
-        "start_timestamp": "2019-10-13T17:50:12.977Z",
+        "start_timestamp": "2019-10-14T21:39:20.039Z",
         "before": [
           {
             "result": {
-              "duration": 6719700,
+              "duration": 4665900,
               "status": "passed"
             },
             "match": {
@@ -36,14 +48,14 @@
             }
           }
         ],
-        "line": 7,
+        "line": 8,
         "name": "успешная авторизация",
         "description": "",
         "id": "операции-с-gosuslugi;успешная-авторизация",
         "after": [
           {
             "result": {
-              "duration": 13072300,
+              "duration": 9645300,
               "status": "passed"
             },
             "match": {
@@ -56,10 +68,10 @@
         "steps": [
           {
             "result": {
-              "duration": 222900,
+              "duration": 242700,
               "status": "passed"
             },
-            "line": 8,
+            "line": 9,
             "name": "пользователь нажал кнопку войти",
             "match": {
               "location": "LoginPageStepdefs.пользовательНажалКнопкуВойти()"

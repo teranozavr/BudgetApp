@@ -2,6 +2,7 @@ package com.github.teranozavr.pages.budgetapp;
 
 import com.github.teranozavr.helpers.WebElementWaiter;
 import org.junit.Assert;
+import org.omg.CORBA.StringHolder;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -19,11 +20,8 @@ public class LoginPage extends AbstractPage {
     @FindBy(id = "mobileOrEmail")
     private WebElement mobileOrEmailField;
 
-
-
     public void open() {
-        String url = env.getProperty("budgetapp.host.url");
-        driver.get(url);
+        open(this);
     }
 
 }

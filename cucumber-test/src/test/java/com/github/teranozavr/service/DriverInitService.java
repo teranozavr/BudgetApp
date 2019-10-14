@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class DriverInitService {
+
     private static final Logger logger = LogManager.getLogger(DriverInitService.class);
 
     private final WebDriver driver = new ChromeDriver();
