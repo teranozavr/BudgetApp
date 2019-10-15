@@ -17,7 +17,7 @@ public class LoginPageStepdefs {
 
     @Когда("пользователь нажал кнопку войти")
     public void пользовательНажалКнопкуВойти() {
-        System.out.println("трололо");
+        System.out.println("трололол");
     }
 
 
