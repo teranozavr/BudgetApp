@@ -8,8 +8,21 @@ import org.springframework.stereotype.Component;
 public class SignUpPage extends AbstractPage {
 
 
-    @FindBy(id = "mobileOrEmail")
-    private WebElement mobileOrEmailField;
+    @FindBy(id = "username")
+    public WebElement emailField;
+
+    @FindBy(id = "password")
+    public WebElement passwordField;
+
+    @FindBy(className = "btn-primary")
+    public WebElement loginButton;
+
+    @FindBy(xpath = "/html/body/div/aside[2]/div/section/div/div/div/div[2]/form/a")
+    public WebElement signUpLink;
+
+    @FindBy(className = "panel-title")
+    public WebElement panelTitle;
+
 
     public void open() {
         open(this);
