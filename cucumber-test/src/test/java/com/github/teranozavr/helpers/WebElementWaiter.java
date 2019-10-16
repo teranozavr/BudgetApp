@@ -86,6 +86,22 @@ public class WebElementWaiter {
         }
     }
 
+    public   void waitWhileUrlChanged(String currentUrl, long time) {
+        Long startTime = System.currentTimeMillis();
+        Long finistTime = startTime + time;
+        String actualUrl;
+        System.out.println("Wait while URL changed " + currentUrl);
+        while (System.currentTimeMillis()<=finistTime) {
+            actualUrl=driver.getCurrentUrl();
+                if(!actualUrl.equals(currentUrl)) {
+                    System.out.println("URL changet to "+actualUrl);
+                    System.out.println("Continue");
+                    return;
+                }
+        }
+        System.out.print("URL not changed in "+time/1000+" seconds");
+    }
+
     public   void waitWhileElementNotClicable(By by) {
         System.out.println("Wait while element not clicable " + by.toString());
         try {

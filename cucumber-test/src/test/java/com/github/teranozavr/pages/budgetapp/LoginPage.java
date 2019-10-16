@@ -32,12 +32,23 @@ public class LoginPage extends AbstractPage {
     @FindBy(className = "panel-title")
     public WebElement panelTitle;
 
-
-
+    @FindBy(xpath = "/html/body/div/aside[2]/div/section/div/div/section/div[2]/ul/li")
+    public WebElement allert;
 
 
     public void open() {
         open(this);
     }
 
+    public void checkSuccessLogin() {
+        webElementWaiter.waitWhileUrlChanged(getUrl(this), 10000);
+        String currentURL = driver.getCurrentUrl();
+        String expectedURL = env.getProperty("Host")+env.getProperty("DashboardPage");
+        Assert.assertEquals(expectedURL,currentURL);
+    }
+
+    public void checkAllert(String expectedText) {
+        String text = webElementWaiter.waitAndGetElement(allert).getText();
+        Assert.assertEquals(text, expectedText);
+    }
 }
