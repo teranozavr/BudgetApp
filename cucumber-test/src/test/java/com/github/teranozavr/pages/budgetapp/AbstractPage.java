@@ -27,7 +27,10 @@ public class AbstractPage {
     @PostConstruct
     public void init() {
         PageFactory.initElements(driver, this);
+        timeout = Long.parseLong(env.getProperty("timeout"));
     }
+
+    public Long timeout;
 
     public String getUrl(Object page){
         String shortClassName = page.getClass().getSimpleName();
@@ -39,8 +42,4 @@ public class AbstractPage {
         System.out.println("Открыта страница "+page.getClass().getSimpleName()+" по адресу "+getUrl(page));
         driver.get(getUrl(page));
      }
-
-//    private getShortClassName(String fullClassName){
-//
-//    }
 }

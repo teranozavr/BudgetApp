@@ -15,4 +15,18 @@ public class SignUpPageStepdefs {
         signUpPage.open();
 
     }
+
+    @Дано("пользователь придумал и ввел корректный логин и пароль")
+    public void пользовательПридумалИВвелКорректныйЛогинИПароль() {
+        Long ms = System.currentTimeMillis();
+        String login = ms.toString()+"@mail.ru";
+        String password  = ms.toString();
+        signUpPage.emailField.sendKeys(login);
+        signUpPage.passwordField.sendKeys(password);
+    }
+
+    @Когда("пользователь нажал кнопку SignUp")
+    public void пользовательНажалКнопкуSignUp() {
+        signUpPage.loginButton.click();
+    }
 }

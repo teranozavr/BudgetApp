@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct;
 @Component
 public class LoginPage extends AbstractPage {
 
-
     @FindBy(id = "username")
     public WebElement emailField;
 
@@ -41,7 +40,7 @@ public class LoginPage extends AbstractPage {
     }
 
     public void checkSuccessLogin() {
-        webElementWaiter.waitWhileUrlChanged(getUrl(this), 10000);
+        webElementWaiter.waitWhileUrlChanged(getUrl(this), timeout);
         String currentURL = driver.getCurrentUrl();
         String expectedURL = env.getProperty("Host")+env.getProperty("DashboardPage");
         Assert.assertEquals(expectedURL,currentURL);
@@ -50,5 +49,12 @@ public class LoginPage extends AbstractPage {
     public void checkAllert(String expectedText) {
         String text = webElementWaiter.waitAndGetElement(allert).getText();
         Assert.assertEquals(text, expectedText);
+    }
+
+    public void chechSignUpPageOpen() {
+        webElementWaiter.waitWhileUrlChanged(getUrl(this), timeout);
+        String currentURL = driver.getCurrentUrl();
+        String expectedURL = env.getProperty("Host") + env.getProperty("SignUpPage");
+        Assert.assertEquals(expectedURL, currentURL);
     }
 }

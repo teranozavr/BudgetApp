@@ -62,4 +62,14 @@ public class LoginPageStepdefs {
     public void появилосьСообщениеInvalidUsernameAndPasswordCombination(String arg0) {
             loginPage.checkAllert(arg0);
     }
+
+    @Дано("пользователь нажал ссылку SignUp")
+    public void пользовательНажалСсылкуSignUp() {
+            loginPage.signUpLink.click();
+    }
+
+    @Дано("пользователь дождался открытия страницы Авторизации")
+    public void пользовательДождалсяОткрытияСтраницыАвторизации() {
+            loginPage.chechSignUpPageOpen();
+    }
 }
