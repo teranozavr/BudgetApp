@@ -34,16 +34,16 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "/html/body/div/aside[2]/div/section/div/div/section/div[2]/ul/li")
     public WebElement allert;
 
+    @FindBy(xpath = "/html/body/div/aside[2]/div/section/div/div/section/div[1]")
+    public WebElement successMessage;
+
 
     public void open() {
         open(this);
     }
 
     public void checkSuccessLogin() {
-        webElementWaiter.waitWhileUrlChanged(getUrl(this), timeout);
-        String currentURL = driver.getCurrentUrl();
-        String expectedURL = env.getProperty("Host")+env.getProperty("DashboardPage");
-        Assert.assertEquals(expectedURL,currentURL);
+        checkPageUrl("DashboardPage");
     }
 
     public void checkAllert(String expectedText) {

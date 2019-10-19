@@ -28,4 +28,5 @@ public class SignUpPage extends AbstractPage {
         open(this);
     }
 
+
 }

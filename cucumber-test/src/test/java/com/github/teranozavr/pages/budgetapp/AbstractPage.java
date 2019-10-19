@@ -2,6 +2,7 @@ package com.github.teranozavr.pages.budgetapp;
 
 import com.github.teranozavr.helpers.WebElementWaiter;
 import com.github.teranozavr.service.DriverInitService;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class AbstractPage {
     @Autowired
     public WebElementWaiter webElementWaiter;
 
+
     @PostConstruct
     public void init() {
         PageFactory.initElements(driver, this);
@@ -36,6 +38,13 @@ public class AbstractPage {
         String shortClassName = page.getClass().getSimpleName();
         String url =  env.getProperty("Host")+env.getProperty(shortClassName);
         return url;
+    }
+
+    public void checkPageUrl(String url){
+        webElementWaiter.waitWhileUrlChanged(driver.getCurrentUrl(), timeout);
+        String currentURL = driver.getCurrentUrl();
+        String expectedURL = env.getProperty("Host")+env.getProperty(url);
+        Assert.assertEquals(expectedURL,currentURL);
     }
 
     protected void open(Object page) {

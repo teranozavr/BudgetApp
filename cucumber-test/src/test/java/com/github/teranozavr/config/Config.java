@@ -1,6 +1,7 @@
 package com.github.teranozavr.config;
 
 
+import com.github.teranozavr.helpers.TestData;
 import com.github.teranozavr.service.DriverInitService;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ public class Config {
     @Bean
     public WebDriver getDriver() {
         return service.initDriver();
+    }
+
+    @Bean
+    public TestData getTestData(){
+        TestData t = new TestData();
+        return t;
     }
 
 }

@@ -1,22 +1,14 @@
 package com.github.teranozavr.steps.budgetapp;
 
-import com.github.teranozavr.pages.budgetapp.LoginPage;
 import cucumber.api.java.ru.Дано;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Тогда;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.junit.Assert;
 
-public class LoginPageStepdefs {
-    @Autowired
-    private LoginPage loginPage;
+public class LoginPageStepdefs extends BaseStepdefs {
 
-    @Autowired
-    private Environment env;
-
-
-        @Дано("пользователь открыл страницу")
-        public void пользовательОткрылСтраницу() {
+    @Дано("пользователь открыл страницу")
+    public void пользовательОткрылСтраницу() {
             loginPage.open();
         }
 
@@ -24,7 +16,6 @@ public class LoginPageStepdefs {
     public void пользовательНажалКнопкуВойти() {
         System.out.println("трололол");
     }
-
 
     @Дано("пользователь ввел существующий логин и пароль")
     public void пользовательВвелСуществующийЛогинИПароль() {
@@ -71,5 +62,25 @@ public class LoginPageStepdefs {
     @Дано("пользователь дождался открытия страницы Авторизации")
     public void пользовательДождалсяОткрытияСтраницыАвторизации() {
             loginPage.chechSignUpPageOpen();
+    }
+
+    @Тогда("появилось сообщение об успешной авторизации {string}")
+    public void появилосьСообщениеОбУспешнойАвторизации(String expectedMessage) {
+        String actuelMessage = webElementWaiter.waitAndGetElement(loginPage.successMessage).getText();
+        Assert.assertEquals(expectedMessage,actuelMessage);
+    }
+
+    @Когда("пользователь ввел логин и пароль")
+    public void пользовательВвелЛогинИПароль() {
+
+        String login = testData.stringMap.get("login");
+        String password = testData.stringMap.get("password");
+        пользовательВвелЛогинLogin(login);
+        пользовательВвелПароль(password);
+    }
+
+    @Тогда("открылась страница {string}")
+    public void открыласьСтраница(String arg0) {
+        loginPage.checkPageUrl(arg0);
     }
 }
