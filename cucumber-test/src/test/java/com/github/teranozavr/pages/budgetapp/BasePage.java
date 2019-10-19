@@ -13,7 +13,7 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.PostConstruct;
 import java.util.logging.LogManager;
 
-public class AbstractPage {
+public class BasePage {
 
     @Autowired
     public WebDriver driver;

@@ -252,6 +252,40 @@ public class WebElementWaiter {
         return element;
     }
 
+    public void waitWhilePropertyOfElementChanged(WebElement element, long time)
+    {
+        waitWhilePropertyOfElementChanged(element, time, null);
+    }
+
+    public void waitWhilePropertyOfElementChanged(WebElement element, long time, String property)
+    {
+        System.out.println("Try to get element "+element.toString());
+        try {
+            wait.ignoring(NoSuchElementException.class)
+                    .ignoring(NullPointerException.class)
+                    .until(ExpectedConditions.elementToBeClickable(element));
+        }
+        catch (Exception ex){
+            System.err.println("Не найден элемент "+element.toString());
+        }
+
+        Long startTime = System.currentTimeMillis();
+        Long finistTime = startTime + time;
+        String propertyValue = property!=null ? element.getAttribute(property) : element.getText();
+        System.out.println("Wait while value of property "+ property +" changed. Current value " + propertyValue);
+
+        while (System.currentTimeMillis()<=finistTime) {
+            String newPropertyValue = property!=null ? element.getAttribute(property) : element.getText();
+
+            if(!newPropertyValue.equals(propertyValue)) {
+                System.out.println("Value of  of property "+ property +" changed to "+newPropertyValue);
+                System.out.println("Continue");
+                return;
+            }
+        }
+        System.out.print("Value of property was not changed in "+time/1000+" seconds");
+    }
+
     public   List<WebElement> waitAndGetElements(WebElement ancestorElement, By by, String attribute, String attributeValue)
     {
         List<WebElement> elementList;

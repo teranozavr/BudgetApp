@@ -2,15 +2,12 @@ package com.github.teranozavr.steps.budgetapp;
 
 import com.github.teranozavr.helpers.TestData;
 import com.github.teranozavr.helpers.WebElementWaiter;
-import com.github.teranozavr.pages.budgetapp.AbstractPage;
 import com.github.teranozavr.pages.budgetapp.LoginPage;
 import com.github.teranozavr.pages.budgetapp.SignUpPage;
-import cucumber.api.java.ru.Тогда;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.PostConstruct;
 
 public class BaseStepdefs {
 
@@ -28,5 +25,12 @@ public class BaseStepdefs {
 
     @Autowired
     protected Environment env;
+
+    public Long timeout;
+
+    @PostConstruct
+    public void init() {
+        timeout = Long.parseLong(env.getProperty("timeout"));
+    }
 
 }

@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SignUpPage extends AbstractPage {
+public class SignUpPage extends BasePage {
 
 
     @FindBy(id = "username")
@@ -23,10 +23,13 @@ public class SignUpPage extends AbstractPage {
     @FindBy(className = "panel-title")
     public WebElement panelTitle;
 
+    @FindBy(xpath = "/html/body/div/aside[2]/div/section/div/div/div/div[2]/form/div[1]/span")
+    public WebElement loginAllert;
+
+    @FindBy(xpath = "/html/body/div/aside[2]/div/section/div/div/div/div[2]/form/div[2]/span")
+    public WebElement passwordAllert;
 
     public void open() {
         open(this);
     }
-
-
 }

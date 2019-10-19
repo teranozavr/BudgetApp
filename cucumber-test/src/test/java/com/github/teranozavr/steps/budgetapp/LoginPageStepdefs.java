@@ -39,14 +39,14 @@ public class LoginPageStepdefs extends BaseStepdefs {
 
     @Дано("пользователь ввел логин {string}")
     public void пользовательВвелЛогинLogin(String login) {
-            loginPage.emailField.clear();
-            loginPage.emailField.sendKeys(login);
+        webElementWaiter.waitAndGetElement(loginPage.emailField).clear();
+        webElementWaiter.waitAndGetElement(loginPage.emailField).sendKeys(login);
     }
 
     @Дано("пользователь ввел пароль {string}")
     public void пользовательВвелПароль(String password) {
-            loginPage.passwordField.clear();
-            loginPage.passwordField.sendKeys(password);
+        webElementWaiter.waitAndGetElement(loginPage.passwordField).clear();
+        webElementWaiter.waitAndGetElement(loginPage.passwordField).sendKeys(password);
     }
 
     @Тогда("появилось сообщение {string}")
