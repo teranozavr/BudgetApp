@@ -1,6 +1,7 @@
 .target/
 .project/
 .idea/
+cucumber-test/target/
 *.iml
 /nbproject/
 /ajcore.*.
