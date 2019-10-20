@@ -4,8 +4,13 @@ import cucumber.api.java.ru.Дано;
 import cucumber.api.java.ru.Когда;
 import cucumber.api.java.ru.Тогда;
 import org.junit.Assert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 public class LoginPageStepdefs extends BaseStepdefs {
+
+    @Autowired
+    protected Environment env;
 
     @Дано("пользователь открыл страницу")
     public void пользовательОткрылСтраницу() {
@@ -26,6 +31,17 @@ public class LoginPageStepdefs extends BaseStepdefs {
         loginPage.passwordField.clear();
         loginPage.passwordField.sendKeys(password);
     }
+
+    @Дано("пользователь ввел существующий логин и новый пароль")
+    public void пользовательВвелСуществующийЛогинИНовыйПароль() {
+        String login = env.getProperty("validLogin");
+        String password = testData.stringMap.get("newPassword");
+        loginPage.emailField.clear();
+        loginPage.emailField.sendKeys(login);
+        loginPage.passwordField.clear();
+        loginPage.passwordField.sendKeys(password);
+    }
+
 
     @Когда("пользователь нажал кнопку Login")
     public void пользовательНажалКнопкуLogin() {
@@ -72,7 +88,6 @@ public class LoginPageStepdefs extends BaseStepdefs {
 
     @Когда("пользователь ввел логин и пароль")
     public void пользовательВвелЛогинИПароль() {
-
         String login = testData.stringMap.get("login");
         String password = testData.stringMap.get("password");
         пользовательВвелЛогинLogin(login);
@@ -82,5 +97,25 @@ public class LoginPageStepdefs extends BaseStepdefs {
     @Тогда("открылась страница {string}")
     public void открыласьСтраница(String arg0) {
         loginPage.checkPageUrl(arg0);
+    }
+
+    @Когда("пользовател ввел логин и старый пароль")
+    public void пользователВвелЛогинИСтарыйПароль() {
+        String login = env.getProperty("validLogin");
+        String password = env.getProperty("validPassword");
+        пользовательВвелЛогинLogin(login);
+        пользовательВвелПароль(password);
+    }
+
+    @Когда("пользовател ввел логин и новый пароль")
+    public void пользователВвелЛогинИНовыйПароль() {
+        String login = env.getProperty("validLogin");
+        String password = testData.stringMap.get("newPassword");
+        пользовательВвелЛогинLogin(login);
+        пользовательВвелПароль(password);
+    }
+    public void пользователВвелЛогинИНовыйПароль(String login, String password) {
+        пользовательВвелЛогинLogin(login);
+        пользовательВвелПароль(password);
     }
 }

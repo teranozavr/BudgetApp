@@ -22,6 +22,7 @@ public class SignUpPageStepdefs extends BaseStepdefs {
         Long ms = System.currentTimeMillis();
         String login = ms.toString()+"@mail.ru";
         String password  = ms.toString();
+        System.out.println("Логин/пароль: "+login+"/"+password);
         webElementWaiter.waitAndGetElement(signUpPage.emailField);
         testData.stringMap.put("login", login);
         testData.stringMap.put("password", password);

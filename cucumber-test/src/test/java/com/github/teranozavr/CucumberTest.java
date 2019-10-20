@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
         plugin = {"html:target/cucumber/html", "json:target/cucumber/json/cucumber.json", "pretty"},
         monochrome = true,
         features = "src/test/resources/features/BudgetApp/",
-        //tags = {"@2.2"},
+//        tags = "  @1.2",
         glue = {"com.github.teranozavr"}
 
 )
