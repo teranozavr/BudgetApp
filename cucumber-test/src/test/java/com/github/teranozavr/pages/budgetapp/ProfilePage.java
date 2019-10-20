@@ -1,6 +1,6 @@
 package com.github.teranozavr.pages.budgetapp;
 
-import org.junit.Assert;
+import com.github.teranozavr.pages.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.stereotype.Component;

@@ -6,3 +6,4 @@ cucumber-test/target/
 /nbproject/
 /ajcore.*.
 *.gz
+*.log

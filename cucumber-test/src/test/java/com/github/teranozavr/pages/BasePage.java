@@ -1,4 +1,4 @@
-package com.github.teranozavr.pages.budgetapp;
+package com.github.teranozavr.pages;
 
 import com.github.teranozavr.helpers.WebElementWaiter;
 import com.github.teranozavr.service.DriverInitService;
