@@ -1,17 +1,13 @@
-package ru.sber.cucumberTest.netutils;
+package com.github.teranozavr.netutils;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.*;
 import org.apache.http.entity.ByteArrayEntity;
-import ru.sber.cucumberTest.requestUtil.HttpRequestEntity;
+import com.github.teranozavr.requestUtil.HttpRequestEntity;
 
 import java.io.IOException;
 import java.util.Map;
-
 
 public class HttpInvoker {
 
@@ -33,7 +29,7 @@ public class HttpInvoker {
     public HttpResponse invoke(String url, String method, Map<String, String> headers, byte[] body) {
         HttpClientFactory.releaseInstance();
         try {
-            client = HttpClientFactory.getHttpsClient();
+            client = HttpClientFactory.getHttpClient();
         } catch (Exception e) {
             e.printStackTrace();
         }

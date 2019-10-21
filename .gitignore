@@ -1,6 +1,7 @@
 .target/
 .project/
 .idea/
+.log/
 cucumber-test/target/
 *.iml
 /nbproject/

@@ -1,4 +1,4 @@
-package ru.sber.cucumberTest.requestUtil;
+package com.github.teranozavr.requestUtil;
 
 import java.util.HashMap;
 

@@ -1,12 +1,9 @@
-package ru.sber.cucumberTest.netutils;
+package com.github.teranozavr.netutils;
 
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 
 import java.net.URI;
 
-/**
- * Created by SBT-Ovchinnikov-DK on 22.03.2018.
- */
 public class HttpDeleteWithBody extends HttpEntityEnclosingRequestBase {
     public static final String METHOD_NAME = "DELETE";
     public String getMethod() {

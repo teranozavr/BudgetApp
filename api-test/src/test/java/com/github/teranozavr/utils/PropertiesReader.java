@@ -1,4 +1,4 @@
-package ru.sber.cucumberTest.utils;
+package com.github.teranozavr.utils;
 
 import java.io.*;
 import java.util.Properties;

@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>cucumber-test</module>
+        <module>api-test</module>
     </modules>
 
     <properties>
@@ -127,10 +128,7 @@
             <version>5.1.9.RELEASE</version>
             <scope>compile</scope>
         </dependency>
-
-
    </dependencies>
-
     <build>
         <plugins>
             <plugin>

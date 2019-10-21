@@ -1,15 +1,13 @@
-package ru.sber.cucumberTest.log;
-
+package com.github.teranozavr.log;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
-import ru.sber.cucumberTest.requestUtil.HttpRequestEntity;
-
+import com.github.teranozavr.requestUtil.HttpRequestEntity;
+import org.junit.Assert;
 import java.io.IOException;
 import java.util.Map;
-
-import static ru.sber.cucumberTest.log.HtmlReporter.*;
+import static com.github.teranozavr.log.HtmlReporter.*;
 
 
 public class CustomLogger {
@@ -38,7 +36,6 @@ public class CustomLogger {
             stringBuilder.append("\t").append("body:").append(httpRequestEntity.getBody().replace("\n", ""));
         }
         LOGGER_REQUEST.info(stringBuilder.toString());
-        writeRqUID(getRqUIDFromRequestEntity(httpRequestEntity));
     }
 
     private static String getRqUIDFromRequestEntity(HttpRequestEntity httpRequestEntity) {
@@ -81,6 +78,7 @@ public class CustomLogger {
             LOGGER_RESPONSE.error(stringBuilder.toString());
             writeTestResult(false);
         }
+        Assert.assertEquals(statusCode,expectedStatusCode);
     }
 
     public static void logRequestError(String error) {

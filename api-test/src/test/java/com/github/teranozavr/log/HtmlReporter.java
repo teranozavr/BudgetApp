@@ -1,4 +1,4 @@
-package ru.sber.cucumberTest.log;
+package com.github.teranozavr.log;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -6,11 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import ru.sber.cucumberTest.utils.PropertiesReader;
+import com.github.teranozavr.utils.PropertiesReader;
 
-/**
- * Created by alg_adm on 22.01.2019.
- */
 public class HtmlReporter {
 
     private static String getReportFileName() throws IOException{
@@ -25,14 +22,6 @@ public class HtmlReporter {
         String inputFile = PropertiesReader.getInstance().getReoprtProperty("reportTemplate.file");
         String outputFile = getReportFileName();
         copyData(inputFile,outputFile,true);
-    }
-
-    private static String getSowaURI() throws IOException{
-        return PropertiesReader.getInstance().getReoprtProperty("sowa.URI");
-    }
-
-    private static String getSowaPort() throws IOException{
-        return PropertiesReader.getInstance().getReoprtProperty("sowa.PORT");
     }
 
     private static void copyData(String in, String out, boolean createNewFile)throws IOException{
@@ -124,16 +113,6 @@ public class HtmlReporter {
 
     public static void writeTestResult() throws IOException {
         String testResult = "<th align = \"center\"><font color=\"gray\">Не тестировалось</font></th></tr>\n";
-        insertToReport("</tr></tbody></table>"+getTestResultsVariable(), testResult);
-    }
-
-    public static void writeRqUID(String RqUID) throws IOException {
-        String testResult = "<th align = \"center\">"+RqUID+"</th>";
-        insertToReport("</tr></tbody></table>"+getTestResultsVariable(), testResult);
-    }
-
-    public static void writeRqUIDAsHyperLink(String RqUID) throws IOException {
-        String testResult = "<th align = \"center\"><a href=\""+getSowaURI()+":"+getSowaPort()+"/"+RqUID+"\">"+RqUID+"</a></th>";
         insertToReport("</tr></tbody></table>"+getTestResultsVariable(), testResult);
     }
 }

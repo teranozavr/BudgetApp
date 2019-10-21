@@ -1,7 +1,7 @@
-package ru.sber.cucumberTest.requestUtil;
+package com.github.teranozavr.requestUtil;
 
 import org.apache.http.HttpResponse;
-import ru.sber.cucumberTest.netutils.HttpInvoker;
+import com.github.teranozavr.netutils.HttpInvoker;
 
 import java.io.BufferedReader;
 import java.io.File;

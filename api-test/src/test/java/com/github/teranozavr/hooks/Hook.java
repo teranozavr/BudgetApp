@@ -1,9 +1,9 @@
-package ru.sber.cucumberTest.hooks;
+package com.github.teranozavr.hooks;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import ru.sber.cucumberTest.log.CustomLogger;
-import ru.sber.cucumberTest.requestUtil.RequestUtil;
+import com.github.teranozavr.log.CustomLogger;
+import com.github.teranozavr.requestUtil.RequestUtil;
 import java.io.IOException;
 
 public class Hook {
@@ -22,5 +22,4 @@ public class Hook {
         RequestUtil.deleteResponse();
         CustomLogger.clear();
     }
-
 }

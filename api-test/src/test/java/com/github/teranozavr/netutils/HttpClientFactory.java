@@ -1,20 +1,9 @@
-package ru.sber.cucumberTest.netutils;
+package com.github.teranozavr.netutils;
 
 import org.apache.http.client.HttpClient;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContexts;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.DefaultHttpClient;
 
-import javax.net.ssl.SSLContext;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.security.KeyStore;
-
-/**
- * Created by SBT-Ovchinnikov-DK on 22.03.2018.
- */
 public class HttpClientFactory {
     private static CloseableHttpClient client;
 
@@ -23,26 +12,16 @@ public class HttpClientFactory {
         if (client != null) {
             return client;
         }
+        //TODO реализовать HTTPS клиент
+        return null;
+    }
 
-        KeyStore keyStore = KeyStore.getInstance("PKCS12");
+    public static HttpClient getHttpClient() throws Exception {
 
-        InputStream keyStoreInput = new FileInputStream("./client.p12");
-        keyStore.load(keyStoreInput, "1qA2wS3eD$".toCharArray());
-        keyStoreInput.close();
-
-        SSLContext sslcontext = SSLContexts.custom()
-                .loadKeyMaterial(keyStore, "1qA2wS3eD$".toCharArray())
-                .loadTrustMaterial(keyStore, new TrustSelfSignedStrategy())
-                .build();
-
-        SSLConnectionSocketFactory factory = new SSLConnectionSocketFactory(
-                sslcontext,
-                SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-
-
-        client = HttpClients.custom().setSSLSocketFactory(factory)
-               .build();
-        return client;
+        if (client != null) {
+            return client;
+        }
+        return new DefaultHttpClient();
     }
 
     public static void releaseInstance() {

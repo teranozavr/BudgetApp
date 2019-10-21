@@ -1,9 +1,8 @@
-package ru.sber.cucumberTest.steps;
+package com.github.teranozavr.steps;
 
 import cucumber.api.java.ru.Когда;
-import ru.sber.cucumberTest.log.CustomLogger;
-import ru.sber.cucumberTest.requestUtil.RequestUtil;
-
+import com.github.teranozavr.log.CustomLogger;
+import com.github.teranozavr.requestUtil.RequestUtil;
 import java.io.File;
 import java.util.Map;
 
@@ -31,13 +30,12 @@ public class When {
                     RequestUtil.addQueryParam(name[1], entry.getValue());
                     break;
                 case "template":
-                    RequestUtil.setBody(new File("data/" + entry.getValue()));
+                    RequestUtil.setBody(new File("src/test/resources/data/" + entry.getValue()));
                     break;
             }
 
         }
         CustomLogger.logRequest(RequestUtil.getHttpRequestEntity());
         RequestUtil.invoke();
-
     }
 }
