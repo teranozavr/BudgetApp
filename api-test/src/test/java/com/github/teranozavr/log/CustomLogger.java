@@ -78,7 +78,7 @@ public class CustomLogger {
             LOGGER_RESPONSE.error(stringBuilder.toString());
             writeTestResult(false);
         }
-        Assert.assertEquals(statusCode,expectedStatusCode);
+        Assert.assertEquals(expectedStatusCode,statusCode);
     }
 
     public static void logRequestError(String error) {

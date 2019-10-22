@@ -11,7 +11,7 @@ import static com.github.teranozavr.log.HtmlReporter.*;
 @CucumberOptions(plugin = {"html:target/cucumber/html", "json:target/cucumber/json/cucumber.json", "pretty"},
         monochrome = true,
         features = "src/test/resources/features/Auth.feature",
-//        tags = "  @1.2",
+//        tags = "  @2.1",
         glue = {"com.github.teranozavr"}
 )
 public class CucumberApiTest {
