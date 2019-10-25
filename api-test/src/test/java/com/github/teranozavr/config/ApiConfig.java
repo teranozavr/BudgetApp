@@ -12,8 +12,8 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @Configuration
 @ComponentScan("com.github.teranozavr")
-@PropertySource("classpath:url.properties")
-@PropertySource("classpath:testData.properties")
+@PropertySource("classpath:config/url.properties")
+@PropertySource("classpath:config/testData.properties")
 @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
 
 public class ApiConfig {

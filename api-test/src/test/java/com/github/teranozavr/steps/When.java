@@ -5,6 +5,7 @@ import cucumber.api.java.ru.И;
 import cucumber.api.java.ru.Когда;
 import com.github.teranozavr.log.CustomLogger;
 import com.github.teranozavr.requestUtil.RequestUtil;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
@@ -33,7 +34,15 @@ public class When {
 
             switch (name[0]) {
                 case "header":
-                    RequestUtil.addHeader(name[1], entry.getValue());
+                    String tokenKeyName = entry.getValue().toString();
+                    String lowerCaseHeaderName = name[1].toLowerCase();
+                    if(lowerCaseHeaderName.equals("authorization") && (tokenKeyName.equals("token")))
+                    {
+                        String token = getTokenFromTestData(tokenKeyName);
+                        String authorizationValue = "Bearer "+token;
+                        RequestUtil.addHeader(name[1], authorizationValue);
+                    }
+                    else RequestUtil.addHeader(name[1], entry.getValue());
                     break;
                 case "body":
                     RequestUtil.addBodyParam(name[1], entry.getValue());
@@ -42,8 +51,11 @@ public class When {
                     RequestUtil.addQueryParam(name[1], entry.getValue());
                     break;
                 case "template":
-                {
-                    String body = testData.jsonMap.get(entry.getValue()).toString();
+                {   String body=null;
+                    try {
+                        body = testData.jsonMap.get(entry.getValue()).toString();
+                    }
+                    catch (Exception ex){};
 
                     if (body==null)
                     {
@@ -52,6 +64,7 @@ public class When {
                     }
                     else {
                         RequestUtil.setBody(body);
+                        break;
                     }
                 }
             }
@@ -60,17 +73,9 @@ public class When {
         RequestUtil.invoke();
     }
 
-//    @И("передает {word} с данными {string}:")
-//    public void передаетApplicationJson(String arg0) {
-//    }
-
-    @И("передает {word} c данными {string}:")
-    public void передаетApplicationJsonCДанными(String contentType, Map<String, String> map) {
+    private String getTokenFromTestData(String tokenKeyName){
+        JSONObject json = testData.jsonMap.get("userData");
+        String token = json.get("token").toString();
+        return token;
     }
-
-    @И("телом {string}")
-    public void телом(String arg0) {
-
-    }
-
 }

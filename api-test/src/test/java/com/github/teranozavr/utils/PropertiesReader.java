@@ -16,7 +16,7 @@ public class PropertiesReader {
     }
 
     public String getReoprtProperty(String propertyKey) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/report.properties")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/config/report.properties")));
         properties.load(reader);
         reader.close();
         return properties.getProperty(propertyKey);

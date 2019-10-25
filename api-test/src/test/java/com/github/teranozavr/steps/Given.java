@@ -37,7 +37,7 @@ public class Given {
         String login = env.getProperty("validLogin");
         String password = env.getProperty("validPassword");
         RequestUtil.setBody("{\"username\":\""+login+"\",\"password\":\""+password+"\"}");
-        CustomLogger.logRequest(RequestUtil.getHttpRequestEntity());
+        //CustomLogger.logRequest(RequestUtil.getHttpRequestEntity());
         RequestUtil.setUrl(env.getProperty("endPoint"));
         RequestUtil.invoke();
         HttpResponse httpResponse = RequestUtil.getHttpResponse();
@@ -57,7 +57,7 @@ public class Given {
         }
         RequestUtil.deleteRequest();
         RequestUtil.deleteResponse();
-        CustomLogger.clear();
+        //CustomLogger.clear();
         RequestUtil.createRequest();
     }
 
