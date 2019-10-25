@@ -12,7 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 @Configuration
 @ComponentScan("com.github.teranozavr")
-//@PropertySource("classpath:url.properties")
+@PropertySource("classpath:url.properties")
 @PropertySource("classpath:testData.properties")
 @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
 

@@ -47,20 +47,6 @@ public class BaseStepdefs {
 
     public Long timeout;
 
-//    @Bean
-    public LoginPageStepdefs getLoginPageStepdefs()
-    {return new LoginPageStepdefs();}
-
-//    @Bean
-    public ProfilePageStepdefs getProfilePageStepdefs()
-    {return new ProfilePageStepdefs();}
-
-
-//    public Environment getEnvironment()
-//    {
-//        return env;
-//    }
-
     @PostConstruct
     public void init() {
         timeout = Long.parseLong(env.getProperty("timeout"));

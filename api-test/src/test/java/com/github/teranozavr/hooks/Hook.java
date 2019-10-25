@@ -10,7 +10,6 @@ public class Hook {
 
     @Before
     public void initRequestEntity(Scenario scenario) throws IOException {
-
         CustomLogger.logInfo("Выполение запроса " + scenario.getName());
         RequestUtil.createRequest(scenario.getName());
     }

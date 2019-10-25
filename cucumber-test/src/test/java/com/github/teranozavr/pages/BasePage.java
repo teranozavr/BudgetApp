@@ -36,14 +36,14 @@ public class BasePage {
 
     public String getUrl(Object page){
         String shortClassName = page.getClass().getSimpleName();
-        String url =  env.getProperty("Host")+env.getProperty(shortClassName);
+        String url =  env.getProperty("endPoint")+env.getProperty(shortClassName);
         return url;
     }
 
     public void checkPageUrl(String url){
         webElementWaiter.waitWhileUrlChanged(driver.getCurrentUrl(), timeout);
         String currentURL = driver.getCurrentUrl();
-        String expectedURL = env.getProperty("Host")+env.getProperty(url);
+        String expectedURL = env.getProperty("endPoint")+env.getProperty(url);
         Assert.assertEquals(expectedURL,currentURL);
     }
 
