@@ -12,6 +12,10 @@ public class RequestUtil {
     private static HttpRequestEntity httpRequestEntity;
     private static HttpResponse httpResponse;
 
+    public static void createRequest() {
+        httpRequestEntity = new HttpRequestEntity(null);
+    }
+
     public static void createRequest(String name) {
         httpRequestEntity = new HttpRequestEntity(name);
     }

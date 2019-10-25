@@ -47,7 +47,7 @@ public class LoginPage extends BasePage {
     public void chechSignUpPageOpen() {
         webElementWaiter.waitWhileUrlChanged(getUrl(this), timeout);
         String currentURL = driver.getCurrentUrl();
-        String expectedURL = env.getProperty("Host") + env.getProperty("SignUpPage");
+        String expectedURL = env.getProperty("endPoint") + env.getProperty("SignUpPage");
         Assert.assertEquals(expectedURL, currentURL);
     }
 }
