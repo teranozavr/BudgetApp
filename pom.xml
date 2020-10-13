@@ -16,7 +16,7 @@
     <properties>
         <spring.version>5.1.9.RELEASE</spring.version>
         <hamcrest-all.version>2.1</hamcrest-all.version>
-        <junit.version>4.11</junit.version>
+        <junit.version>4.13.1</junit.version>
         <selenium-server.version>2.46.0</selenium-server.version>
         <cucumber.version>4.3.1</cucumber.version>
         <json-provider.version>5.0.0</json-provider.version>
